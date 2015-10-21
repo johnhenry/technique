@@ -7,7 +7,7 @@
 
 
 ##General
-Set .npmrc file to save automatically
+
 
 ##Build
 
