@@ -4,8 +4,8 @@ export default{
       STATICDIR : './../client'
   },
   CLIENT : {
-      SCRIPTS : ['/script.js'],
-      STYLES  : ['/style.css'],
+      SCRIPTS : ['./script.js'],
+      STYLES  : ['./style.css'],
       INLINESCRIPTS : [],
       INLINESTYLES  : []
   },

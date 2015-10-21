@@ -13,12 +13,13 @@ Set .npmrc file to save automatically
 
 ###Script
 Minify script.js
+Move script build process to external module (similar to build/html.js)
 
 ###Style
 Minify style.css
 Add browser prefixes
 Incorporate CSS Mixins/Includes
-
+Move style build process to external module (similar to build/html.js)
 
 ###HTML
 
