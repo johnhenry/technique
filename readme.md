@@ -38,7 +38,7 @@ npm run server
 
 Please note that aside from serving static files, the server servers a specific purpose for the Todo Server Application.
 
-Also please note: we take advantage of the ["babel/register"]() module in order to take advantage of some of the newer featurs of JavaScript without having to complie before running.
+Also please note: we take advantage of the ["babel/register"](https://babeljs.io/docs/setup/#babel_register) module in order to take advantage of some of the newer featurs of JavaScript without having to complie before running.
 
 ###Client - Build Scripts
 
