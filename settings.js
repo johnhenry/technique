@@ -5,7 +5,9 @@ export default{
   },
   CLIENT : {
       SCRIPTS : ['/script.js'],
-      STYLES  : ['/style.css']
+      STYLES  : ['/style.css'],
+      INLINESCRIPTS : [],
+      INLINESTYLES  : []
   },
   BLOG : {
     ITEMSPERINDEXPAGE : 3,
