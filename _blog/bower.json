@@ -1,0 +1,14 @@
+{
+  "name": "",
+  "version": "0.0.0",
+  "homepage": "https://github.com/johnhenry/technique",
+  "authors": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
