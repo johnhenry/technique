@@ -45,10 +45,10 @@ Also please note: we take advantage of the ["babel/register"]() module in order 
 Each application has an associated _build_ folder and script to generate its static assets and put them in the _/client_ directory.
 
 ####script.js
-Applications that generate a _script.js_ file do so by concatenating assets from within the script folder, according to _build/script/\_.js_.
+Applications that generate a _script.js_ file do so by concatenating assets from within the script folder, according to *build/script/\_.js*.
 
 #####JS ES6/2015
-In completely es6 compliant browsers, including the \_.js file in your browser would be sufficient, but by running the build script, allows us to use these feature in current browsers. We take advantage of [babelify](https://github.com/babel/babelify). To accomplish this.
+In completely es6 compliant browsers, including the  \_.js file in your browser would be sufficient, but by running the build script, allows us to use these feature in current browsers. We take advantage of [babelify](https://github.com/babel/babelify). To accomplish this.
 
 In addition, the scripts we use [browserify](http://browserify.org/) to pull in scripts loaded with npm, so it can be used as a package manager for front-end code as well as backend.
 
@@ -60,7 +60,7 @@ JSX can be incorporated into source files. It will be compiled into plain JavaSc
 TODO:Minify script.js
 
 ####style.css
-Applications generate a _style.css_ file by concatenating assets from within the _style_ folder, according to _build/style/\_.css_.
+Applications generate a _style.css_ file by concatenating assets from within the _style_ folder, according to *build/style/ \_.css*.
 
 ###Concatenation and Importing, and CSS 4.0
 Concatenation and Importing are not native features of CSS, but are enabled via the [postcss](https://github.com/postcss/postcss) processor. In addition, the processor allows us to incorporate some features from CSS 4.0 in the styling in the same way that we can incorporate JS ES6 into our scripts.
