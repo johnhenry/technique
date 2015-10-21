@@ -14,17 +14,10 @@ The applications below are written in [JavaScript ES6/2015](http://www.ecma-inte
 We also make light usage of the [React](https://facebook.github.io/react/) and [Koa](http://koajs.com/) libraies, but again, this is not necessary to understand the core concepts.
 Being a loose set of ideas and not a full framework, the programmer can freely integrate them into any project.
 
-Assuming that you have [node and npm](http://www.nodejs.org) already installed, you can install the (this) base application using via npm.
+Assuming that you have [git](https://git-scm.com/), [node, and npm](http://www.nodejs.org) already installed, you can install the (this) base application like so:
 
 ```bash
-npm install technique
-
-```
-
-Alternatively, you can install via git, but you'll still have to have node and npm installed.
-
-```bash
-git clone <repo-url>/technique
+git clone git@github.com:johnhenry/technique.git
 cd technique
 npm install
 ```
