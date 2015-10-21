@@ -12,7 +12,6 @@ Set .npmrc file to save automatically
 ##Build
 
 ###Script
-Add window module (export window;)
 Minify script.js
 
 ###Style

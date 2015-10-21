@@ -1,4 +1,6 @@
 import {render, subscribe} from './renderer';
+import window from './window';
+var fetch = window.fetch;
 var subscription = action => {
   return fetch('/', {
       method: 'post',

@@ -384,6 +384,8 @@ The only thing that we do is modify the subscription function to forward actions
 ```javascript
 //filename:controller.server.js
 import {render, subscribe} from './renderer';
+import window from './window';
+var fetch = window.fetch;
 var subscription = action => {
   return fetch('/', {
       method: 'post',
@@ -399,6 +401,9 @@ subscribe(subscription);
 var init = () => subscription();
 export default init;
 ```
+
+Note: rather than accessing the _window_ object globally, we export it from a module. 
+
 
 #####Controller - Server
 Like _state_, _updates_ are handled on the server rather than the client, but in exactly the same way. So we can use the code from the client's _get-update.js_ on the without modification as well.
