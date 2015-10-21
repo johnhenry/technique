@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-todo": "node _client/build/_",
+    "build-todo-static": "node _client/build/_",
     "build-todo-server": "node _client/build/_.server",
     "build-blog": "node _blog/build/_",
     "server": "node server/start",
