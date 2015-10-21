@@ -57,16 +57,11 @@ Note, not all E6 features are available, and in some cases, the transpilation is
 #####JSX
 JSX can be incorporated into source files. It will be compiled into plain JavaScript during the build step.
 
-TODO:Minify script.js
-
 ####style.css
 Applications generate a _style.css_ file by concatenating assets from within the _style_ folder, according to *build/style/ \_.css*.
 
 ###Concatenation and Importing, and CSS 4.0
 Concatenation and Importing are not native features of CSS, but are enabled via the [postcss](https://github.com/postcss/postcss) processor. In addition, the processor allows us to incorporate some features from CSS 4.0 in the styling in the same way that we can incorporate JS ES6 into our scripts.
-
-TODO: Minify style.css
-TODO: Add browser prefixes
 
 
 ####?.html
