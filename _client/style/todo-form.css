@@ -1,0 +1,16 @@
+.TodoForm{
+  width:100%;
+
+  input[type=text]{
+    color:green;
+  }
+  button{
+    color:blue;
+  }
+  button.PostTodo::before{
+    content: "Post Todo";
+  }
+  button.ClearTodo::before{
+    content: "Clear Todo";
+  }
+}
