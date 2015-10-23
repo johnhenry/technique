@@ -257,6 +257,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 import TodoList from "./components/todo-list";
 import TodoForm from "./components/todo-form";
+import window from './window';
+var document = window.document;
 var subscriptions = [];
 var subscribe = callback => {
   subscriptions.push(callback);
@@ -402,7 +404,7 @@ var init = () => subscription();
 export default init;
 ```
 
-Note: rather than accessing the _window_ object globally, we export it from a module. 
+Note: rather than accessing the _window_ object globally, we export it from a module.
 
 
 #####Controller - Server

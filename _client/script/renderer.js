@@ -2,6 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 import TodoList from "./components/todo-list";
 import TodoForm from "./components/todo-form";
+import window from './window';
+var document = window.document;
 var subscriptions = [];
 var subscribe = callback => {
   subscriptions.push(callback);
