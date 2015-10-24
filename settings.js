@@ -4,6 +4,7 @@ export default{
       STATICDIR       : './../client'
   },
   CLIENT : {
+      POLYFILLSCRIPTS : ['https://cdnjs.cloudflare.com/ajax/libs/fetch/0.10.0/fetch.min.js'],
       SCRIPTS         : ['./script.js'],
       STYLES          : ['./style.css'],
       INLINESCRIPTS   : [],
