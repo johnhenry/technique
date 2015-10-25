@@ -4,11 +4,11 @@ export default{
       STATICDIR       : './../client'
   },
   CLIENT : {
-      POLYFILLSCRIPTS : ['https://cdnjs.cloudflare.com/ajax/libs/fetch/0.10.0/fetch.min.js'],
-      SCRIPTS         : ['./script.js'],
+      SCRIPTS : ['https://cdnjs.cloudflare.com/ajax/libs/fetch/0.10.0/fetch.min.js'],
+      DEFEREDSCRIPTS         : ['./script.js'],
       STYLES          : ['./style.css'],
-      INLINESCRIPTS   : [],
-      INLINESTYLES    : []
+      INTERNALSCRIPTS   : [],
+      INTERNALSTYLES    : []
   },
   BLOG : {
     ITEMSPERINDEXPAGE : 3,
