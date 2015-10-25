@@ -8,11 +8,11 @@ var IndexPage = React.createClass({
     var foot = [];
     var linkIndex = 0;
     if(index !==0){
-      foot.push(<a key={linkIndex++} className='Home' href='/'></a>);
-      foot.push(<a key={linkIndex++} className='Prev' href={ index === 1 ? '/' : index + '.html' } />);
+      foot.push(<a key={linkIndex++} className='Home' href='./'></a>);
+      foot.push(<a key={linkIndex++} className='Prev' href={ index === 1 ? './' : index + '.html' } />);
     }
     if(!last)
-      foot.push(<a key={linkIndex++} className='Next' href={ (index + 2) + '.html' } />);
+      foot.push(<a key={linkIndex++} className='Next' href={ './' + (index + 2) + '.html' } />);
     return <html>
       <head>
         <meta charSet='UTF-8' />
