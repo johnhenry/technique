@@ -3,7 +3,7 @@ var PostSummary = React.createClass({
   render : function(){
     var post = this.props.post;
     return <li className={this.props.className}>
-      <a href={post.slug}><h1>{post.title}</h1></a>
+      <a href={'./post/' + post.slug + '.html'}><h1>{post.title}</h1></a>
       <div>{post.intro}</div>
     </li>;
   }

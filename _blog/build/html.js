@@ -31,6 +31,7 @@ getBlogData(input).then(posts => {
         );
   };
   //Individual Pages
+  fs.mkdirSync(output + 'post');
   posts.forEach((post, index, posts)=>{
     var file = renderPost({
                   index : index,
@@ -38,8 +39,8 @@ getBlogData(input).then(posts => {
                   prev : posts[index - 1],
                   next : posts[index + 1]
                 });
-    file = injectStyle.apply(undefined, CLIENT.STYLES)(file);
-    var filePath = output + post.slug;
+    file = injectStyle.apply(undefined, CLIENT.STYLES.map(s=> '../' + s))(file);
+    var filePath = output + '/post/' + post.slug + ".html";
     try{
       fs.writeFileSync(
         filePath,

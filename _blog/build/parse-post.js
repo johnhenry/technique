@@ -11,7 +11,7 @@ var parsePost = md => {
   Object.assign(content, {intro: getIntro(content)});//Generate Intro
   if(!content.slug && content.title) content.slug = content.title.toLowerCase().split(' ').join('-');//Ensure slug
   if(!content.slug) content.slug = '-' + String(Math.random()).substr(2) + '-';//Ensure slug
-  content.slug = encodeURIComponent(content.slug) + '.html';//Encode Slug
+  content.slug = encodeURIComponent(content.slug);//Encode Slug
   return content;
 };
 export default parsePost;

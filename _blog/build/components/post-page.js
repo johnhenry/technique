@@ -5,13 +5,13 @@ var PostPage = React.createClass({
     var post = this.props.post;
     var prerender = [];
     if(this.props.next)
-      prerender.push(<link key={linkIndex++} rel='prerender' href={ this.props.next.slug + '.html' } />)
+      prerender.push(<link key={linkIndex++} rel='prerender' href={ './' + this.props.next.slug + '.html' } />)
     var foot = [];
     var linkIndex = 0;
     if(this.props.prev)
-      foot.push(<a key={linkIndex++} className='Prev' href={ this.props.prev.slug + '.html' } title={this.props.prev.title}/>);
+      foot.push(<a key={linkIndex++} className='Prev' href={ './' + this.props.prev.slug + '.html' } title={this.props.prev.title}/>);
     if(this.props.next)
-      foot.push(<a key={linkIndex++} className='Next' href={ this.props.next.slug + '.html' } title={this.props.next.title}/>);
+      foot.push(<a key={linkIndex++} className='Next' href={ './' + this.props.next.slug + '.html' } title={this.props.next.title}/>);
     return <html>
       <head>
         <meta charSet='UTF-8' />
@@ -23,7 +23,7 @@ var PostPage = React.createClass({
         <h2 title={post.title}>{post.title}</h2>
         <h3 title={post.author}>by {post.author}</h3>
         <Post post={post} className="Post"></Post>
-        <footer><a href='/' className="Home" title="Home"></a>{foot}</footer>
+        <footer><a href='../' className="Home" title="Home"></a>{foot}</footer>
       </body>
     </html>
   }
