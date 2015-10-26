@@ -484,7 +484,7 @@ There is no change in the renderer for the client. It accepts a state and emits 
 To build the application type:
 
 ```
-npm run build-blog
+npm run build-blog-static
 ```
 
 To start the server type:
