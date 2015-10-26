@@ -8,6 +8,7 @@
     "build-todo-server": "node _client/build/_.server",
     "build-blog": "node _blog/build/_",
     "server": "node server/start",
+    "server-dynamic": "node server/start.dynamic",
     "postinstall": "npm run build-todo-static"
   },
   "author": "",
@@ -25,6 +26,7 @@
     "markdown": "^0.5.0",
     "minify": "^1.4.22",
     "minifyify": "^7.1.0",
+    "path-to-regexp": "^1.2.1",
     "postcss": "^4.1.16",
     "postcss-import": "^6.2.0",
     "postcss-nested": "^0.3.2",
