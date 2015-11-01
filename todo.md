@@ -3,22 +3,20 @@
 A list of plans and things to do.
 
 ##Documentation
+- Ad documentation for blog server
 
 ##General
-- Update versions of Post CSS, Babe, Node
--
+- Update versions of Babel
 
 ##Build
 
 ###Script
  - Minify script.js
+ - Ad source map
  - Move script build process to external module (similar to build/html.js)
   - I've tried this but I believe there are issues with using babel/register and some of the components
 
 ###Style
- - Minify style.css
- - Add browser prefixes
- - Incorporate CSS Mixins/Includes/Extend
  - Move style build process to external module (similar to build/html.js)
   - I've tried this but I believe there are issues with using babel/register and some of the components
 
