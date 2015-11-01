@@ -5,9 +5,7 @@ import TodoForm from "./components/todo-form";
 import window from './window';
 var document = window.document;
 var subscriptions = [];
-var subscribe = callback => {
-  subscriptions.push(callback);
-};
+
 var runSubscription = function(data){
   return subscriptions.forEach(subscription => subscription(data));
 };
@@ -30,5 +28,7 @@ var renderTarget        = document.getElementsByTagName('div')[0];
 var ElementConstructor  = React.createClass(elementDefinition);
 var ElementFactory      = React.createFactory(ElementConstructor);
 var Renderer            = element => ReactDOM.render(element, renderTarget);
-var render              = state => Renderer(ElementFactory(state));
-export default {render, subscribe};
+export const render     = state => Renderer(ElementFactory(state));
+export const subscribe  = callback => {
+  subscriptions.push(callback);
+};

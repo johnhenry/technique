@@ -6,7 +6,6 @@ A list of plans and things to do.
 - Ad documentation for blog server
 
 ##General
-- Update versions of Babel
 
 ##Build
 
