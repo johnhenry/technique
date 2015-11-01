@@ -30,7 +30,7 @@ try{
   //01.1 Copy Assets
   fs.copySync(input + 'assets', output + 'assets');
   //01.2Compile CSS
-  require('./css')(input, output);
+  require('./css')(input + '/style/_.css', output);
 }catch(error){
   console.log(error);
   rmDir(output);

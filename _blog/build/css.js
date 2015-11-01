@@ -15,8 +15,8 @@ module.exports = function(input, output){
     ,autoprefixer
     ,cssnano
   ])
-  .process(fs.readFileSync(input + '/style/_.css','utf-8'),{
-        from: input + '/style/_.css',
+  .process(fs.readFileSync(input,'utf-8'),{
+        from: input,
         to:   output + 'style.css',
         map: { inline: false }
     })

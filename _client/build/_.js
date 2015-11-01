@@ -26,26 +26,13 @@ rmDir(output);
 try{
   //01.0 Create Folders
   fs.mkdirSync(output);
-
   fs.mkdirSync(output + 'assets');
-
   //01.1 Copy Assets
   fs.copySync(input + 'assets', output + 'assets');
-
   //01.2 Compile JS
-  var browserify = require('browserify');
-  var babelify = require('babelify');
-  browserify()
-    .transform(babelify)
-    .require(input + 'script/_.js', { entry: true })
-    .bundle()
-    .on('error', function (err) { console.log('Error: ' + err.message); })
-    .pipe(fs.createWriteStream(output + 'script.js'));
-
+  require('./js')(input + 'script/_.server.js', output + 'script.js');
   //01.3Compile CSS
-  require('./css')(input, output);
-
-
+  require('./css')(input + '/style/_.css', output);
 }catch(error){
   console.log(error);
   rmDir(output);

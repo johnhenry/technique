@@ -32,18 +32,9 @@ try{
   fs.copySync(input + 'assets', output + 'assets');
 
   //01.2 Compile JS
-  var browserify = require('browserify');
-  var babelify = require('babelify');
-  browserify()
-    .transform(babelify)
-    .require(input + 'script/_.server.js', { entry: true })
-    .bundle()
-    .on('error', function (err) { console.log('Error: ' + err.message); })
-    .pipe(fs.createWriteStream(output + 'script.js'));
-
+  require('./js')(input + 'script/_.server.js', output);
   //01.3Compile CSS
-  require('./css')(input, output);
-
+  require('./css')(input + '/style/_.css', output);
 }catch(error){
   console.log(error);
   rmDir(output);
