@@ -1,6 +1,6 @@
 {
   "name": "technique",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "server-blog": "node server/start.dynamic",
     "postinstall": "npm run build-todo-static"
   },
-  "repository":"https://github.com/johnhenry/technique",
+  "repository": "https://github.com/johnhenry/technique",
   "engines": {
     "node": "^5.0.0"
   },
