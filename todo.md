@@ -16,8 +16,7 @@ A list of plans and things to do.
   - I've tried this but I believe there are issues with using babel/register and some of the components
 
 ###Style
- - Move style build process to external module (similar to build/html.js)
-  - I've tried this but I believe there are issues with using babel/register and some of the components
+
 
 ###HTML
 
