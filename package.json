@@ -6,12 +6,12 @@
   "scripts": {
     "build-todo-static": "node _client/build/_",
     "build-todo-server": "node _client/build/_.server",
-    "build-blog-satic": "node _blog/build/_",
+    "build-blog-static": "node _blog/build/_",
     "build-blog-server": "node _blog/build/_.server",
     "lint-client": "eslint _client/script/**",
     "lint-server": "eslint server/**",
     "server": "node server/start",
-    "server-dynamic": "node server/start.dynamic",
+    "server-blog": "node server/start.dynamic",
     "postinstall": "npm run build-todo-static"
   },
   "author": "",

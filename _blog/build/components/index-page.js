@@ -1,10 +1,7 @@
 import React        from 'react';
 import PostSummary  from './post-summary'
-var IndexPage = React.createClass({
-  render : function(){
-    var index = this.props.index;
-    var posts = this.props.posts.map((post, i) => <PostSummary key={i} post={post} className="PostSummary"/>);
-    var last = this.props.last;
+var IndexPage = ({index, posts, last}) => {
+    posts = (posts || []).map((post, i) => <PostSummary key={i} post={post} className="PostSummary"/>);
     var foot = [];
     var linkIndex = 0;
     if(index !==0){
@@ -26,6 +23,5 @@ var IndexPage = React.createClass({
         <footer>{foot}</footer>
       </body>
     </html>
-  }
-})
+  };
 export default IndexPage;

@@ -1,7 +1,5 @@
 import React from 'react';
-var Post = React.createClass({
-  render : function(){
-    var post = this.props.post;
+var Post = ({post, className}) => {
     var key = 0;
     var markdown = post.markdown.map(function(element){
       if(element === 'markdown') return undefined;
@@ -17,9 +15,8 @@ var Post = React.createClass({
           break;
       }
     }).filter(_=>_);
-    return <article className={this.props.className}>
+    return <article className={className}>
       {markdown}
     </article>
-  }
-})
+  };
 export default Post;

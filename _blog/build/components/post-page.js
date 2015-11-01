@@ -1,17 +1,15 @@
 import React  from 'react';
 import Post   from './post';
-var PostPage = React.createClass({
-  render : function(){
-    var post = this.props.post;
+var PostPage = ({post, next, prev}) => {
     var prerender = [];
-    if(this.props.next)
-      prerender.push(<link key={linkIndex++} rel='prerender' href={ './' + this.props.next.slug + '.html' } />)
+    if(next)
+      prerender.push(<link key={linkIndex++} rel='prerender' href={ './' + next.slug + '.html' } />)
     var foot = [];
     var linkIndex = 0;
-    if(this.props.prev)
-      foot.push(<a key={linkIndex++} className='Prev' href={ './' + this.props.prev.slug + '.html' } title={this.props.prev.title}/>);
-    if(this.props.next)
-      foot.push(<a key={linkIndex++} className='Next' href={ './' + this.props.next.slug + '.html' } title={this.props.next.title}/>);
+    if(prev)
+      foot.push(<a key={linkIndex++} className='Prev' href={ './' + prev.slug + '.html' } title={prev.title}/>);
+    if(next)
+      foot.push(<a key={linkIndex++} className='Next' href={ './' + next.slug + '.html' } title={next.title}/>);
     return <html>
       <head>
         <meta charSet='UTF-8' />
@@ -26,6 +24,5 @@ var PostPage = React.createClass({
         <footer><a href='../' className="Home" title="Home"></a>{foot}</footer>
       </body>
     </html>
-  }
-})
+  };
 export default PostPage;
