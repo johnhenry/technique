@@ -2,7 +2,9 @@ module.exports = function(input, output){
   var fs = require('fs-extra');
   var browserify = require('browserify');
   var babelify = require('babelify');
-  browserify()
+  var minifyify = require('minifyify');
+  browserify({debug:true})
+    .plugin('minifyify', {map: true, output: output + 'script.js.map'})
     .transform(babelify)
     .require(input, { entry: true })
     .bundle()

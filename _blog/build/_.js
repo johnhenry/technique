@@ -31,14 +31,14 @@ try{
   fs.copySync(input + 'assets', output + 'assets');
   //01.2Compile CSS
   require('./css')(input + '/style/_.css', output);
+  //01.3 Build HTML
+  require('babel-core/register')({
+    // This will override `node_modules` ignoring - you can alternatively pass
+    // an array of strings to be explicitly matched or a regex / glob
+    ignore: false
+  });
+  require('./html.js');
 }catch(error){
   console.log(error);
   rmDir(output);
 }
-//02 Build HTML
-require('babel-core/register')({
-  // This will override `node_modules` ignoring - you can alternatively pass
-  // an array of strings to be explicitly matched or a regex / glob
-  ignore: false
-});
-require('./html.js');

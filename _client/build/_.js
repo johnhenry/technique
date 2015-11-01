@@ -30,17 +30,18 @@ try{
   //01.1 Copy Assets
   fs.copySync(input + 'assets', output + 'assets');
   //01.2 Compile JS
-  require('./js')(input + 'script/_.server.js', output + 'script.js');
-  //01.3Compile CSS
+  require('./js')(input + 'script/_.js', output);
+  //01.3 Compile CSS
   require('./css')(input + '/style/_.css', output);
+  //01.4 Build HTML
+  require('babel-core/register')({
+    // This will override `node_modules` ignoring - you can alternatively pass
+    // an array of strings to be explicitly matched or a regex / glob
+    ignore: false
+  });
+  require('./html.js');
+
 }catch(error){
   console.log(error);
   rmDir(output);
 }
-//02 Build HTML
-require('babel-core/register')({
-  // This will override `node_modules` ignoring - you can alternatively pass
-  // an array of strings to be explicitly matched or a regex / glob
-  ignore: false
-});
-require('./html.js');
