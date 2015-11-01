@@ -2,10 +2,10 @@ import React  from 'react';
 import Post   from './post';
 var PostPage = ({post, next, prev}) => {
     var prerender = [];
+    var linkIndex = 0;
     if(next)
       prerender.push(<link key={linkIndex++} rel='prerender' href={ './' + next.slug + '.html' } />)
     var foot = [];
-    var linkIndex = 0;
     if(prev)
       foot.push(<a key={linkIndex++} className='Prev' href={ './' + prev.slug + '.html' } title={prev.title}/>);
     if(next)
