@@ -42,12 +42,11 @@
     "markdown": "^0.5.0",
     "minify": "^1.4.22",
     "minifyify": "^7.1.0",
-    "path-to-regexp": "^1.2.1",
     "postcss": "^5.0.10",
     "postcss-extend": "^1.0.1",
     "postcss-import": "^7.1.0",
     "postcss-nested": "^1.0.0",
-    "react": "^0.14.0",
+    "react": "^0.14.1",
     "react-dom": "^0.14.0",
     "yaml-front-matter": "^3.2.3"
   }
