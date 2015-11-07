@@ -1,507 +1,529 @@
 #Technique
 
-This is a set techniques, ideas, concepts, and conventions used for creating maintainable, scalable applications.
-I present them in the form of three applications, along with documentation detailing how each is built.
+This is a set of techniques that I've learned over the years while programming. Following these guidelines will allow you to easily create maintainable, scalable, and debuggable applications.
 
-##Introduction
+Many of the techniques rely on specific features of the JavaScript (ES6/2015), but don't let that discourage you! The concepts are widely applicable to other languages.
 
-The main idea behind each or the applications that there are three primary parts: the *state* the *controller* and the *renderer*.
-The *state* represents any information available to a user at any given point in time, and the rest of the application is either concerned with updating the state via the *controller* or presenting the state to the user via the *renderer*;
+This document is split into two main parts: Part One focuses on a set of concepts while part two focuses on applications built with these concepts in mind.
 
-##Applications
+##Part One. -- Concepts
 
-The applications below are written in [JavaScript ES6/2015](http://www.ecma-international.org/ecma-262/6.0/), but the concepts can likely be applied in any other language.
-We also make light usage of the [React](https://facebook.github.io/react/) and [Koa](http://koajs.com/) libraies, but again, this is not necessary to understand the core concepts.
-Being a loose set of ideas and not a full framework, the programmer can freely integrate them into any project.
+###Functional Programming
 
-Assuming that you have [git](https://git-scm.com/), [node, and npm](http://www.nodejs.org) already installed, you can install the (this) base application like so:
+Functional programming has many meanings, but we're going to go with the idea that you application is composed of _stateless_ _higher-order_ _functions_. Being _stateless_ means that invoking a function does not affect the anything outside of that function. It simply produces an output, and does not modify anything, not even the value(s) passed into it. Being _higher-order_ means that values passed into and returned from a function may also functions, in addition to other data types supported by the language.
+(Note, many languages other than don't allow for higher order functions, but you can achieve a similar effect by attaching functions as methods to objects and passing those objects to and from functions.)
+
+###Immutability
+
+ Any values (variables), are declared at the beginning of functions/blocks in which they are used and not mutated. As variables are not mutated, all declarations should use either the 'const' or the 'import' keyword. Avoid user of 'let' and 'var'.
+
+###Controller-Renderer Pattern
+
+The main functionally of your application is encapsulated into two main types of components:
+
+   - Controllers modify an application's state in response to _actions_, which come from the user (indirectly through the _view_) or some other source (a server, another controller, etc.) and send the updated state to a renderer.
+
+   - Renderers accept an application's state and transform (or "render") it into something with which the user interacts (a _view_). This is usually in the form of a webpage or elements on a web page but abstractly could be anything including formatted data, audio files, or 3D printed objects.
+
+####Basic Controller-Renderer Diagram
+
+     [view] -(actions)-> [controller] -(state)-> [renderer] -> [view]
+
+An application may be composed of any number of controllers and renderers, provided that they are connected via _one-way_ communication, as this will greatly simplify debugging. When there is _two-way_ communication between components, it should take place across two distinct channels with one channel carrying communication between two components on way and the other the other way.
+
+Visusually, this:
+
+```
+[component A] <-
+|               |
+-> [component B]
+```
+
+is preferred over this:
+
+```
+[component A] <-> [component B]
+```
+
+Generally, functions are channels
+
+###Componentization
+
+  Each part of an application is composed of smaller, simpler components that may in turn be composed of even simpler components.
+
+  Use modules to organize your components, and only export singular functions (or a small set of closely related functions) from each. In some cases, you may want to export other JavaScript objects besides functions.
+
+  This will help you to reuse code throughout your application and avoid wasteful duplication.
+
+  Here is an example of a very simple application:
+
+  ```JavaScript
+  //simpler-conversation.js
+  ['John', 'James', 'Jamal'].forEach(member=>{
+    alert('hello' + member);
+    setTimeout(() => alert('goodbye' + member), 1000);
+  });
+  ```
+
+  We can break it into components like so:
+
+  ```JavaScript
+  //file:say-hello.js
+    export const sayHello = name => alert('hello ' + name);
+  ```
+
+  ```JavaScript
+  //file:say-goodbye.js
+    export const sayGoodBye = name => alert('goodbye ' + name);
+  ```
+
+  ```JavaScript
+  //file:name.js
+    export const TEAM = ['John', 'James', 'Jamal'];
+  ```
+
+  ```JavaScript
+  //file:conversation.js
+    import sayHello from './say-hello';
+    import sayGoodbye './say-goodbye';
+    import team from './team';
+    team.forEach(member=>{
+      sayHello(member);
+      setTimeout(() => sayGoodbye(member), 1000);
+    });
+  ```
+  This is more complicated than _simple-conversation.js_, but now we can can now easily modify parts of the application without affecting each other or the main application in _conversation.js_.
+
+###Visual Components
+
+The visual part of an application should componentized as well.
+
+We'll use [React]() -- it allows us not only [define visual components as functions](), we can use JSX to compose our components as HTML.
+
+```JavaScript
+//messages-button.jsx
+import React from 'react';
+export const ClickButton = ({click, className}) =>
+  <button className={className} onClick={click}>Click for message</button>
+```
+Note that we've passed in the _className_ attributes
+
+```JavaScript
+//messages.jsx
+import React from 'react';
+import ClickButton from './click-button';
+const clickFunction = (message) => () => alert(message);
+export const Messages = () => <div className='Messages'>
+  <ClickButton className='a' click={clickFunction('message a')}/>
+  <ClickButton className='b' click={clickFunction('message b')}/>
+  <ClickButton className='c' click={clickFunction('message c')}/>
+</div>;
+```
+
+```JavaScript
+//application.js
+import ReactDOM from 'react-dom';
+import Messages from './messages';
+ReactDOM.render(Messages(), document.getElementById('react-render-target'));
+```
+
+```html
+<!--application.html-->
+<!doctype html>
+<html>
+  <head>
+    <script src='./message-application.js' defer></script>
+  </head>
+  <body>
+    <div id='react-render-target'></div>
+  </body>
+</html>
+```
+
+####Styling
+
+Using some of the newer features of CSS (provided by our build scripts), we can allow our styles to mirror the structure of our visual components. The following CSS maps directly to each component of
+
+
+```css
+/* file: button.css */
+button{
+  margin:8px;
+}
+```
+
+```css
+/* file: message-button.css */
+@import './button.css';
+.MessageButton{
+  @extend: button;
+  color:blue;
+}
+```
+
+```css
+/* file: message.css */
+.Messages{
+  padding:8px;
+  @import './message-button.css';
+}
+```
+
+```css
+/* file: message-application.css */
+body{
+  margin:0px;
+  padding:0px;
+  @import './messages.css';
+}
+```
+
+Some are very much against using processors expand nested CSS due to performance issues that may arise. It's entirely possible to avoid nesting all together:
+
+```css
+/* file: message-application-no-nesting.css */
+@import './button.css';
+body{
+  margin:0px;
+  padding:0px;
+}
+.Messages{
+  padding:8px;
+}
+.Messages .MessageButton{
+  @extend: button;
+  color:blue;
+}
+```
+
+###Anti-Patterns
+JavaScript is an extremely flexible language. There are often several ways to do the same thing. Some ways are better than other and some features should be avoided entirely.
+
+You should definitely *form your own option* as to _why_ the following patterns are bad and _why_ you should avoid them, but if you find yourself using any of them in your code, I advise you to think long and hard about refactoring your code to get rid of them.
+
+####Mutable Variables
+
+Avoiding mutation makes reasoning about your code easier. Mutation makes it difficult to find the source of bugs, and code can be optimised to run much faster Avoid any declarations that use 'var' or 'let'.
+
+####Classes
+  Classes may have their place in other languages, but here are supersceeded by more effective features.
+
+  - Name Spacing: Some people use classes for name spacing, but you can use built-in objects for this, in additon to features such as _maps_ or _modules_.
+  - Encapsulation: Encapsulation can be acheived using _modules_
+  - Object Constructors : _stateless (highe-order) functions_ can act as factories to create objects.
+  - Classical Inheritence : In my years of programming, I haven't been able to find a _good_ use case for inheritance. Some APIs make heavy use of it, but I feel like this is mostly just bad API design. If you find a good use case for it, feel free to use JavaScript classes, or  
+
+Other features, such as hoisting, cause more confusion and are best avoided by refactoring your code.
+
+Avoid hoisting an the temporal dead zone
+  - Declare functions as you would any other value;
+    ```JavaScript
+    const greet = function(){
+      //...
+    };
+    ```
+    Declaring a function like this does not allow it to be hoisted. However, the scope in which it is defined is clear because of the 'const' keyword (which could be 'let' or 'var'). Further, declaring values like this reminds the coder that functions can be used just as any other value, including being passed to and returned from other functions.
+    ```JavaScript
+    function greet(){
+      //...
+    };
+    ```
+  Declaring a function like this allows it to be hoisted. This sort of declaration also makes a value's scope unclear as there is no 'var', 'let', or 'const' keyword. It's my advice to simply avoid this all together.
+
+  - Declare all values before using them
+  ```JavaScript
+  const GREETING = "hello";
+  const greet = function(name){
+    return GREETING + ' ' + name;
+  };
+  console.log(greet('john'));
+  ```
+  as opposed to
+
+  ```JavaScript
+  const GREETING = "hello";
+  console.log(greet('john'));
+  function greet(name){
+    return GREETING + ' ' + name;
+  };
+  ```
+##Avoid "Phantom" Variables
+Let's start off by saying, I don't _hate_ PHP, I but I do *absolutey abhore* its _extract_ function because it creates values without really showing where they come from that can lead to some tense debugging situations.
+
+I've seen this used mostly to extract form variables from the previously visited page.
+
+```php
+<?php
+  extract($_POST);
+  echo "NAME = $name PASSWORD = $password";
+?>
+```
+
+JavaScript doesn't have an equivalent, but there are a number of global values, like alert and Math included in standard library of a language.
+
+```javascript
+//file:./application.js
+alert(Math.sin(0));
+```
+
+While this works it is not clear where the alert function and the Math object come from.
+
+I encourage you to export any global objects used from other modules
+
+
+```javascript
+//file:./default_environment/window.js
+export default window;
+```
+
+```javascript
+//file:./default_environment/Math.js
+export default Math;
+```
+
+```javascript
+//file:./application.js
+import window from './default_enviromnemt/window';
+import Math from './default_enviromnemt/Math';
+const alert = window.alert;
+Math.sin(0);
+```
+
+At first glance, this seems only to serve to make simple applications more complicated. Admittedly, this might not have much of an impact on debugging, as there isn't usually much guess as to where globals come from from.
+
+
+However; direct control over the values ads a interestg way to add/polyfill functionality into existing objects.
+
+```javascript
+//file:./default_environment/window-fetch.js
+if(!window.fetch) window.fetch = function(){
+  //... not implemented
+}
+export default window;
+```
+
+```javascript
+//file:./default_environment/window-fetch-remote.js
+var FETCH_POLYFILL_URL = '';
+if(!window.fetch){
+  var script = window.document.createElement( 'script' );
+  script.type = 'text/javascript';
+  script.src = FETCH_POLYFILL_URL;
+  document.getElementsByTagName('head')[0].appendChild(script);
+}
+export default window;
+```
+Check [https://github.com/github/fetch]() for an actual implementation.
+
+It also gives you the opportunity to easily replace global objexts for testing.
+
+```javascript
+//file:./default_environment/window-fake.js
+var log = window.console.log.bind(window.console);
+var w = {
+  document : {
+
+  },
+  alert : log
+  confirm : log,
+  prompt : log,
+};
+export default w;
+```
+
+```javascript
+//file:./application.js
+import window from './default_enviromnemt/window-fake';
+import Math from './default_enviromnemt/Math';
+const alert = window.alert;
+Math.sin(0);
+```
+
+In short, if an something in your code is not a [primative](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) or an [operator](https://developer.mozilla.org/en-US/docs/Glossary/Operator), it should have a clear declaration with using one of the keywords: import, const, var or let;  or it should be declared as a parameter in a function.
+Node's [\_dirname](https://nodejs.org/api/globals.html#globals_direname) and  [\_filename](https://nodejs.org/api/globals.html#globals_filename) don't fit well into these classifications, so just use them as normally.
+
+
+
+###Build Scripts
+
+Many of the above features are from version of [JavaScript]() and [CSS]() that are not widely available in browsers. Thanks to [babel-core/register](), we have to jump through very few hoops in order to get these features working on the server, but the frontend is a whole different matter.
+
+Most browsers will not currently work with my ahem, "future code", so I use build scripts to transpile it into code that has all of the desired features, but still works with most browsers.
+
+###Browserify
+I also use build scripts to allow me to [import npm packages into my browser code](). This allows me to use a unified package manager for both browser and sever code. [Bower]() can still be used to download scripts, but  
+
+###Concatination and more
+I also use scripts to concatinate, minify, and add source maps to the code.
+
+Note: As technologies such as [HTTP/2](), JavaScript ES6 and CSS 4.0 become more prevalent, concatination will begin to hinder performance. However, this is a problem for me, because concatination is a necessity when using [Browserif]. Oh well, I guess we'll just cross that bridge when we get there...
+
+
+##Part 2. -- Sample Applications
+
+What's good telling you all of that without something to show for it?
+
+After you've installing this repository with:
 
 ```bash
-git clone git@github.com:johnhenry/technique.git
+git clone /johnhenry/technique
 cd technique
 npm install
-```
-
-Once installed, you can build each of the applications by running it's specific build command.
-
-```
-npm run build-<sample application name>
-```
-###Server
-
-Each of the applications include static files that can be severed with the included server.
-For these apps, we may run the included server that server these files from the _/client_ directory after running each app's build command.
-
-```
-npm run server
-```
-
-Please note that aside from serving static files, the server servers a specific purpose for the Todo Server Application.
-
-Also please note: we take advantage of the ["babel/register"](https://babeljs.io/docs/setup/#babel_register) module in order to take advantage of some of the newer featurs of JavaScript without having to complie before running.
-
-###Client - Build Scripts
-
-Each application has an associated _build_ folder and script to generate its static assets and put them in the _/client_ directory.
-
-####script.js
-Applications that generate a _script.js_ file do so by concatenating assets from within the script folder, according to *build/script/\_.js*.
-
-#####JS ES6/2015
-In completely es6 compliant browsers, including the  \_.js file in your browser would be sufficient, but by running the build script, allows us to use these feature in current browsers. We take advantage of [babelify](https://github.com/babel/babelify). To accomplish this.
-
-In addition, the scripts we use [browserify](http://browserify.org/) to pull in scripts loaded with npm, so it can be used as a package manager for front-end code as well as backend.
-
-Note, not all E6 features are available, and in some cases, the transpilation is unreliable so we must fall back to using older features. Specifically, in some instances ES6 imports produce irreconcillable errors. In these cases, we fall back to  using "require" from "Common JS" syntax.
-
-#####JSX
-JSX can be incorporated into source files. It will be compiled into plain JavaScript during the build step.
-
-####style.css
-Applications generate a _style.css_ file by concatenating assets from within the _style_ folder, according to *build/style/ \_.css*.
-
-###Concatenation and Importing, and CSS 4.0
-Concatenation and Importing are not native features of CSS, but are enabled via the [postcss](https://github.com/postcss/postcss) processor. In addition, the processor allows us to incorporate some features from CSS 4.0 in the styling in the same way that we can incorporate JS ES6 into our scripts.
-
-
-####?.html
-Applications generate a _html_ files by rendering pages created with React components directly to static text files.
-
-####assets
-For convenience, all item within the _assets_ folder are copied into an _assets_ folder within the _client_ directory.
-
-###Application List
-
-####1. Todo (Static)
-
-*Todo (Static)* is a simple static web page that keeps track of todos.
-
-#####Installation
-
-To build the application type:
-
-```
-npm run build-todo-static
-```
-
-NOTE: It's likely that this was built after installation.
-
-
-To start the server type:
-
-```
-npm run server
-```
-
-and visit [localhost:3000](http://localhost:3000). You can change the port in "./settings.js"
-
-#####State and Schema
-
-Your state can be anything object in your language. For the examples, we use a standard JavaScript library as they are easily composed with other objects and read by React.
-
-Just because your state _can_ be anything doesn't mean that it should. It's always a good idea to enforce some sort of schema on your applications state, or at least define it so you have a good understanding of your app.
-
-We'll store the state in memory retrieve it via functions that return Promises so that we can manipulate and read it asynchronously.
-
-```javascript
-//filename:state.js
-/*
-schema:
-  state:
-  {
-    name: String,
-    todos: List<String>
-  }
-*/
-
-var state;
-var getState = context => Promise.resolve(state);
-var setState = newState => Promise.resolve(state = newState);
-export default {getState, setState};
-```
-#####Controller, Actions and Schema
-
-The controller must modify the state, but needs some sort of trigger telling it how to modify the state. We do this by creating a map between *actions* and functions that modify state with an action dictionary.
-
-Like state, actions can be anything, but we use JavaScript Objects for simplicity.
-Also, like state, it is convenient to define a schema for actions.
-
-```javascript
-//filename:action-dictionary.js
-/*
-schema:
-  action:
-  {
-    type: Strut ['update-name', 'add-todo'],
-    payload: *
-  }
-    action(type='add-todo'):
-    {
-      payload: String
-    }
-    action(type='update-name'):
-    {
-      payload: String
-    }
-    action(type='reset'):
-    {
-
-    }
-*/
-const BASESTATE = {
-  name: 'Todo List'
-  ,todos: []
-};
-var cloneState = state => {return JSON.parse(JSON.stringify(state))};
-var actionDictionary = {
-  __proto__ : null
-  ,'update-name': name => state => {
-    var newState = cloneState(state);
-    newState.name = name;
-    return newState;
-  }
-  ,'add-todo' : todo => state => {
-    var newState = cloneState(state);
-    newState.todos.push(todo);
-    return newState;
-  }
-  ,'reset': () => () => cloneState(BASESTATE)
-
-};
-export default actionDictionary;
-```
-
-Now that we have the action dictionary, we want to asynchronously resolve the action into a function, as we do so with getUpdate.
-
-```javascript
-//filename:get-update.js
-import actionDictionary from './action-dictionary';
-var getUpdate = action => Promise.resolve(actionDictionary[action.type](action.payload));
-export default getUpdate;
-```
-
-Well soon define how the renderer works. For now, that it exports two functions for communication:
- - the _render_ function accepts state and renders it for the user to experience.
- - the _subscribe_ function allows a function to subscribe to actions from the view. We pass a subscription function to the subscribe function. The subscription function updates the state, and passes it to the renderer whenever it receives an action.
-
-```javascript
-//filename:controller.js
-import getUpdate from './get-update';
-import {getState, setState} from './state';
-import {render, subscribe} from './renderer';
-var subscription = action => {
-  return getState().then(state=>{
-    getUpdate(action).then(update=>{
-      setState(update(state)).then(render)
-    });
-  });
-};
-subscribe(subscription);
-var init = () => subscription({type: 'reset'});
-export default init;
-```
-
-#####Renderer
-
-It's useful to simplify your *renderer* to a _render_ function to which the state can be passed. The below renderer incorporates react components and exports render function that renders state, as a JavaScript object, directly to the DOM
-
-```javascript
-//filename:todo-list.js
-var React = require('react');
-var TodoList = React.createClass({
-  render: function(){
-    var i=0;
-    var todos = this.props.todos.map(todo => {
-      return <li key={i++}>{todo}</li>;
-    });
-    return <ul className={this.props.className}>
-          {todos}
-        </ul>;
-  }
-});
-export default TodoList;
-```
-
-
-```javascript
-//filename:todo-form
-var React = require('react');
-var TodoForm = React.createClass({
-  postTodo: function(e){
-    e.preventDefault();
-    var payload = this.refs.todo.value.trim();
-    this.refs.todo.value = '';
-    return this.props.onSubmit(
-      {
-        type: 'add-todo',
-        payload: payload
-      });
-  },
-  clearTodos: function(e){
-    e.preventDefault();
-    return this.props.onSubmit({type: 'reset'});
-  },
-  render: function(){
-    return <form className={this.props.className}>
-          <input type="text" placeholder="to do" ref="todo" />
-          <button type="button" className='PostTodo' onClick={this.postTodo} ></button>
-          <button type="button" className='ClearTodo' onClick={this.clearTodos} ></button>
-        </form>;
-  }
-})
-export default TodoForm;
-```
-
-```javascript
-var React = require('react');
-var ReactDOM = require('react-dom');
-import TodoList from "./components/todo-list";
-import TodoForm from "./components/todo-form";
-import window from './window';
-var document = window.document;
-var subscriptions = [];
-var subscribe = callback => {
-  subscriptions.push(callback);
-};
-var runSubscription = function(data){
-  return subscriptions.forEach(subscription => subscription(data));
-};
-
-var elementDefinition = {
-  handleSubmit: runSubscription,
-  render: function(){
-    var i = 0;
-    var todos = this.props.todos.map(todo => {
-      return <li key={i++}>{todo}</li>;
-    });
-    return <div>
-        <h1>{this.props.name}</h1>
-        <TodoList todos={this.props.todos} className='TodoList' />
-        <TodoForm onSubmit={this.handleSubmit} className='TodoForm' />
-    </div>;
-  }
-};
-var renderTarget        = document.getElementsByTagName('div')[0];
-var ElementConstructor  = React.createClass(elementDefinition);
-var ElementFactory      = React.createFactory(ElementConstructor);
-var Renderer            = element => ReactDOM.render(element, renderTarget);
-var render              = state => Renderer(ElementFactory(state));
-export default {render, subscribe};
-```
-
-Note the renderer also exports a subscribe function that allows an outside function to subscribe to actions emitted by the renderer.
-
-
-###Components, Styling and Modularity
-
-The main reason for using a css processor, is so that we can organize our css into a file system that mirrors our component structure.
-
-Doing this allows us to style by structure, minimizing the use of classes and ids.
-
-```css
-/*filename:todo-list.css*/
-.TodoList{
-  width:100%;
-  height:50%;
-
-  li{
-    color:red;
-
-  }
-}
-```
-
-```css
-/*filename: todo-form.css*/
-.TodoForm{
-  width:100%;
-
-  input[type=text]{
-    color:green;
-  }
-  button{
-    color:blue;
-  }
-  button.PostTodo::before{
-    content: "Post Todo";
-  }
-  button.ClearTodo::before{
-    content: "Clear Todo";
-  }
-}
 
 ```
 
-```css
-/*filename: _.css*/
-html{
-    height:100%;
+you'll can run each of these applications by running their respective build and (if necessary) server scripts. Check out the source and see how they each demonstrate the concepts above.
 
-    body{
-        height:100%;
 
-        div{
-          height:100%;
+###Static Applications
 
-          h1{
+These static applications are composed only of static pages. You _may_ be able to open them directly in a browser, but you'll likely need to run them on a static server. I encourage the use of [http-server]() for a number of reasons, but it may make sense to simply run the server for the dynamic <a href="#2-dynamic-todo">Todo application</a>, as it's already pointed to the appropriate directory.
 
-          }
-          @import './todo-list.css';
-          @import './todo-form.css';
-        }
-    }
-}
+###Todo <span id='2-static-todo'></span>
+
+####Build
+
+Build With:
+
+```bash
+  npm run build-todo-static
 ```
 
+####Run
 
-####2. Todo (Server)
+Point a static server to the newly built 'static' folder.
 
-*Todo (Server)* is almost identical to *Todo (Client)*, except it communicates with a server to manipulate and store the application's state. We'll take a look at the modifications that we need to make to our Todo (Client) application, as well as what we need to build the server.
+Or run
 
-
-#####Installation
-
-To build the client application type:
-
+```bash
+  npm run start-server-todo
 ```
-npm run build-todo-server
-```
-
-To start the server application type:
-
-```
-npm run server
-```
-
-and visit [localhost:3000](http://localhost:3000). You can change the port in "./settings.js"
-
-#####State Controller and Client
-For this application, state is handled on the server rather than the client, but in exactly the same way. We can use the code from the client's _state.js_ on the without modification.
+and visit [127.0.0.1:3000](127.0.0.1:3000).
 
 
-#####Controller - Client
-Because state is handled and updates are handles on the server, we can leave these out.
-The only thing that we do is modify the subscription function to forward actions to the server and renders the response.
+####Usage
+To add a todo, the user types interacts with the page (the view) by typing the box and clicking the "Add Todo" button. This sends an message (action) to the controller telling it to update the list of todos (the state). Once this is updated, it's given to the renderer to re-render the view.
 
-```javascript
-//filename:controller.server.js
-import {render, subscribe} from './renderer';
-import window from './window';
-var fetch = window.fetch;
-var subscription = action => {
-  return fetch('/', {
-      method: 'post',
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: action ? JSON.stringify(action) : action
-    })
-    .then(response => response.json())
-    .then(render);
-};
-subscribe(subscription);
-var init = () => subscription();
-export default init;
+####UsageDiagram
+
+[view:html] -(actions:json)->
+^  [controller] -(state:json)->
+|    [renderer:React] ->
+[view:html]
+
+
+###Blog <span id='2-static-blog'></span>
+
+####Build
+
+```bash
+  npm run build-blog-static
 ```
 
-Note: rather than accessing the _window_ object globally, we export it from a module.
+####Run
 
+Point a static server to the newly built 'static' folder.
 
-#####Controller - Server
-Like _state_, _updates_ are handled on the server rather than the client, but in exactly the same way. So we can use the code from the client's _get-update.js_ on the without modification as well.
+Or run
 
-A slight change is the source of _actions_ -- we'll set up our _subscription_ function as koa middleware, and have it will respond to _requests_ rather than actions.
+```bash
+  npm run start-server-todo
+```
+and visit [127.0.0.1:3000](127.0.0.1:3000).
 
+###Meta Usage
 
-Aside from these minor changes, the controller on the client and the controller on the server are very similar.
+The build process is perhaps more important than the application itself. Here, we can see that the build process can be seen as following the _Controller-Renderer_ model. The build scripts acts as a _renderer_. The markdown documents in the _data_ folder act as the application _state_. You, act as the _controller_ by modifying the files in the folder and running the scripts to transform them into a set of html file, which represent the _view_.
 
+####Meta Usage Diagram
 
+[controller:You] -(state:documents) ->
+  [renderer:scripts]->
+    [view:static files]
 
+###Usage
 
+This is a standard static website. Just visit it and click the links.
+Pages are statically generated with the build script, so in order to modify the blog, edit the files in the _data_ folder and re-run the build script.
 
+####Usage Diagram
+[view:browser] -(interactions:http-request)->
+^  [network]...
+|
+|  ...[network] -(actions:http-request)->
+|    [controller:server] -(state:static files)->
+|
+|  [network]...
+|  ...[network] -(state:response[file])->
+[view:browser]
 
-```javascript
-//filename:server/controller.js
-import getUpdate from '../_client/script/get-update';
-import {getState, setState} from '../_client/script/state';
-import getRenderer from './get-renderer';
-var subscription = function * (){
-  try{
-    var state = yield getState(this);
-    var render = yield getRenderer(this);
-    if(!(this.request.body && this.request.body.type)){
-      return render(state);
-    }else{
-      var update = yield getUpdate(this.request.body);
-      return setState(update(state)).then(render);
-    }
-  }catch(error){
-    this.statusCode = 404;
-    this.body = error;
-  }
-};
-getUpdate({type:'reset'}).then(update => setState(update()));//Initialize
-export default subscription;
+###Dynamic Applications
+
+###Todo <span id='2-dynamic-todo'></span>
+
+####Build
+
+```bash
+  npm run build-todo-static
 ```
 
-#####Renderer - Server
+####Run
 
-Rather than have a single static renderer, we've incorporated a _getRenderer_ method othat will allows use to use a method of our choosing.
+```bash
+  npm run start-server-todo
+```
+and visit [127.0.0.1:3000](127.0.0.1:3000).
 
-```javascript
-//filename:server/get-renderer.js
-import jsonRenderer from './renderers/json';
-var getRenderer = context=>Promise.resolve(jsonRenderer(context));
-export default getRenderer;
+####Usage
 
+This is essentially the same as the previous todo application, except the state is processed remotely.
+Rather than the controller processing actions on the page, it passes them over the network to a second controller on the server. The server then interprets the action, modifies the state accordingly, renders the state across the network back to the original controller which then renders the state to the view.
+
+
+####Usage Diagram
+
+[view:html] -(actions:json)->
+^  [controller:browser] -(actions:http request)->
+|    [network]...
+|
+|    ...[network] -(actions:http request)->
+|      [controller:server] -(state:json)->
+|        [renderer:json] ->
+|    [network]...
+|
+|    ...[network] -(state:response[json])->
+|  [controller:browser] -(state:json)->
+|    [renderer:React] ->
+[view:html]
+
+###Blog <span id='2-dynamic-blog'></span>
+
+####Build
+
+```bash
+  npm run build-blog-server
 ```
 
-The client renderer rendered the state of the application to a browser page. The idea here is that the state is data coming from the server, so makes sense to render it as a server response instead.
+####Run
 
-```javascript
-//filename:renderers/json.js
-export default context => state => {
-  context.type = 'application/json';
-  context.status = 200;
-  context.body = state;
-  return state;
-};
+```bash
+  npm run start-server-blog
 ```
+and visit [127.0.0.1:3000](127.0.0.1:3000).
 
-#####Renderer - Client
+####Usage
 
-There is no change in the renderer for the client. It accepts a state and emits actions in the same way as the previous application.
+This is a standard website. Just visit it and click the links.
+Pages are dynamically generated on each request, so modifying files in the _data_ folder will change the blog without the need for a restart.
 
+####Usage Diagram
 
+[view:browser] -(interactions:http-request)->
+  [network]...
 
+  ...[network] -(actions:http-request)->
+    [controller:server] -(state:dynamic files)->
 
-####3. Blog (Static)
-
-*Blog (Static)* abstracts and extends the concepts of *state*, *controller*, and *renderer* outside of the realm of programming languages.
-
-#####Installation
-
-To build the application type:
-
-```
-npm run build-blog-static
-```
-
-To start the server type:
-
-```
-npm run server
-```
-
-and visit [localhost:3000](http://localhost:3000). You can change the port in "./settings.js"
-
-
-###State
-Here the state is a set of files that will be rendered. You modify the state by editing the files directly.
-
-###Renderer
-Here the render function is the build script that transforms the set of markdown files, into a set of html files with which the user will interact.
-
-
-###Controller
-You are the controller. You decide how to update the state (edit the files), and you decide when to render the state (run the build script)
+  [network]...
+  ...[network] -(state:response[file])->
+[view:browser]
