@@ -37,7 +37,14 @@ var argv = require('yargs')
     describe: 'include html',
     default: true
   })
+  .option('verbose', {
+    alias: 'v',
+    describe: 'verbose',
+    default: true
+  })
   .argv;
+var verbose = argv['verbose'] ? console.log.bind(console) : function(){};
+
 var APPLICATION = argv._[0] || '';
 var PARALLEL = argv['parallel'];
 var ASSETS_TARGET;
@@ -48,27 +55,27 @@ var HTML_HELPER;
 switch(APPLICATION){
   case '':
   case 'todo-static':
-    console.log('building todo-static');
+    verbose('building todo-static');
     ASSETS_TARGET = 'assets';
     JS_TARGET = 'todo-static.js';
     CSS_TARGET = 'todo.css';
     HTML_HELPER = 'html.js';
     break;
   case 'todo-server':
-    console.log('building todo-server');
+    verbose('building todo-server');
     ASSETS_TARGET = 'assets';
     JS_TARGET = 'todo-server.js';
     CSS_TARGET = 'todo.css';
     HTML_HELPER = 'html.js';
     break;
   case 'blog-static':
-    console.log('building blog-static');
+    verbose('building blog-static');
     ASSETS_TARGET = 'assets';
     CSS_TARGET = 'blog.css';
     HTML_HELPER = 'html-blog.js';
     break;
   case 'blog-server':
-    console.log('building blog-server');
+    verbose('building blog-server');
     ASSETS_TARGET = 'assets';
     CSS_TARGET = 'blog.css';
     break;
@@ -79,7 +86,7 @@ switch(APPLICATION){
 
 var moveAssets = function(ASSETS_TARGET){
   if(!ASSETS_TARGET) return;
-  console.log('moving assets');
+  verbose('moving assets...');
   var TARGET = output + ASSETS_TARGET;
   try{
   if(!fs.existsSync(TARGET)) fs.mkdirSync(TARGET);
@@ -88,6 +95,7 @@ var moveAssets = function(ASSETS_TARGET){
   }catch(error){
     throw new Error(`Error Moving Assets: ${error}`);
   }
+  verbose('asset move complete...');
 };
 
 var compileJS = function(JS_TARGET){
@@ -96,26 +104,31 @@ var compileJS = function(JS_TARGET){
       handler();
     }
   };
-  console.log('compling scripts');
-  return require('./helpers/js')(path.resolve(__filename, '../../script/' + JS_TARGET), output).on('error', function(){
+  verbose(' compling scripts...');
+  return require('./helpers/js')(path.resolve(__filename, '../../script/' + JS_TARGET), output).on('finish', function(){
+    verbose(' ...scripts compiled');
+  }).on('error', function(){
     throw new Error(`Error compiling Scripts: ${error}`);
   });
 };
 
 var compileCSS = function(CSS_TARGET){
   if(!CSS_TARGET) return Promise.resolve();
-  console.log('compling styles');
-  return require('./helpers/css')(path.resolve(__filename, '../../style/' + CSS_TARGET), output).catch(function(error){
+  verbose(' compling styles...');
+  return require('./helpers/css')(path.resolve(__filename, '../../style/' + CSS_TARGET), output).then(function(){
+    verbose(' ...styles compiled.');
+  }).catch(function(error){
     throw new Error(`Error compiling Styles: ${error}`);
   });
 };
 
 var compileHTML = function(HTML_HELPER){
   if(!HTML_HELPER) return;
-  console.log('compling html');
+  verbose(' compling html...');
   try{
     require('babel-core/register')({ignore: false})
     require('./helpers/' + HTML_HELPER);
+    verbose(' ... html compiled.');
   }catch(error){
     throw new Error(`Error compiling HTML: ${error}`);
   }
@@ -124,42 +137,45 @@ try{
 
   if(argv['assets'] === false){
     ASSETS_TARGET = '';
-    console.log('skipping assets')
+    verbose('skipping assets')
   };
   if(argv['scripts'] === false){
     JS_TARGET = '';
-    console.log('skipping scripts')
+    verbose('skipping scripts')
   };
   if(argv['styles'] === false){
     CSS_TARGET = '';
-    console.log('skipping styles')
+    verbose('skipping styles')
   };
   if(argv['html'] === false){
     HTML_HELPER = '';
-    console.log('skipping html')
+    verbose('skipping html')
   };
   if(argv['purge'] === false){
-    console.log('skipping purge');
+    verbose('skipping purge');
   }else{
+    verbose('purgeing files...');
     rmdir(output);
+    verbose('...purge complete.');
   };
   if(!fs.existsSync(output)) fs.mkdirSync(output);
 
   moveAssets(ASSETS_TARGET);
-  //01.0 Create Folders
   if(PARALLEL){
-    console.log('compliling in parallel')
+    verbose('compliling in parallel...');
     compileJS(JS_TARGET);
     compileCSS(CSS_TARGET);
     compileHTML(HTML_HELPER);
+    verbose('...sequential compliation will complete...');
   }else{
-    console.log('compiling sequentially')
+    verbose('compiling sequentially...')
     compileJS(JS_TARGET).on('finish', function(){
       compileCSS(CSS_TARGET).then(function(){
         compileHTML(HTML_HELPER);
+        verbose('...sequential compliation complete.')
       });
     });
   }
 }catch(error){
-  console.error(error);
-}
+  throw error;
+};
