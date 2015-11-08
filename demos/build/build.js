@@ -5,9 +5,12 @@ var OUTPUTDIR = '../client/';
 var output = path.resolve(__dirname, OUTPUTDIR) + '/';
 var rmdir = require('./helpers/rmdir');
 
-var argv = require('yargs').argv;
+var argv = require('yargs')
+  .default('parallel', false)
+  .alias('p', 'parallel')
+  .argv;
 var APPLICATION = argv._[0] || '';
-var PARALLEL = argv._[1] === 'parallel';
+var PARALLEL = argv['parallel'];
 var ASSETS_TARGET;
 var JS_TARGET;
 var CSS_TARGET;
@@ -45,19 +48,19 @@ switch(APPLICATION){
     break;
 };
 
-if(argv._[2] === 'assets'){
+if(argv['assets'] === false){
   ASSETS_TARGET = '';
   console.log('skipping assets')
 };
-if(argv._[3] === 'scripts'){
+if(argv['scripts'] === false){
   JS_TARGET = '';
   console.log('skipping scripts')
 };
-if(argv._[4] === 'styles'){
+if(argv['styles'] === false){
   CSS_TARGET = '';
   console.log('skipping styles')
 };
-if(argv._[5] === 'html'){
+if(argv['html'] === false){
   HTML_HELPER = '';
   console.log('skipping html')
 };
