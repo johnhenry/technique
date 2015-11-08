@@ -1,4 +1,5 @@
 import path from 'path';
+import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import Index from '../../component/index';
 import embed  from '../../script/external-script-embed';
@@ -36,6 +37,6 @@ var render =  (data, at, em, atb, emb) => {
       })
       .map(embed)
       .join('');
-    return '<!doctype html>' +   append(ReactDOMServer.renderToStaticMarkup(Index(data)), sources, bsources);
+    return '<!doctype html>' +   append(ReactDOMServer.renderToStaticMarkup(<Index {...data}/>), sources, bsources);
 }
 export default render;
