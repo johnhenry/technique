@@ -44,6 +44,7 @@
     "postcss-nested": "^1.0.0",
     "react": "^0.14.1",
     "react-dom": "^0.14.0",
+    "sync-request": "^2.1.0",
     "yaml-front-matter": "^3.2.3",
     "yargs": "^3.29.0"
   }
