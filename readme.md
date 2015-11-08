@@ -364,13 +364,13 @@ Most browsers will not currently work with my ahem, "future code", so I use buil
 To use build scripts, on the command line, type ```npm bulid``` followed by the application name.
 
 ```bash
-npm build <application>
+npm run build [application]
 ```
 
-To pass options, such as the help option, please pass '--' after the initial command.
+To pass options, such as the help option, please pass '--' after the initial command before any options
 
 ```bash
-npm build [application] -- --help
+npm run build [application] -- --help
 ```
 
 ###Browserify
