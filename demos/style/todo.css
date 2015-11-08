@@ -10,8 +10,8 @@ html{
           h1{
 
           }
-          @import './todo-list.css';
-          @import './todo-form.css';
+          @import './todo/todo-list.css';
+          @import './todo/todo-form.css';
         }
     }
 }

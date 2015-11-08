@@ -2,33 +2,7 @@ body{
   h1{
 
   }
-  @import './index-page.css';
-  @import './post-page.css';
-  footer{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    text-align:right;
-    *{
-      margin-right:10px;
-    }
-    .Home::before{
-      content:"Home"
-    }
-    .Home{
-
-    }
-    .Prev::before{
-      content:"Previous"
-    }
-    .Prev{
-
-    }
-    .Next::before{
-      content:"Next"
-    }
-    .Next{
-
-    }
-  }
+  @import './blog/index-page.css';
+  @import './blog/post-page.css';
+  @import './blog/footer.css';
 }

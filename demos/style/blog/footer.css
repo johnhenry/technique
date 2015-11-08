@@ -1,0 +1,27 @@
+footer{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  text-align:right;
+  *{
+    margin-right:10px;
+  }
+  .Home::before{
+    content:"Home"
+  }
+  .Home{
+
+  }
+  .Prev::before{
+    content:"Previous"
+  }
+  .Prev{
+
+  }
+  .Next::before{
+    content:"Next"
+  }
+  .Next{
+
+  }
+}
