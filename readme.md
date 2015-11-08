@@ -6,6 +6,11 @@ Many of the techniques rely on specific features of the JavaScript (ES6/2015), b
 
 This document is split into two main parts: Part One focuses on a set of concepts while part two focuses on applications built with these concepts in mind.
 
+###Quick note on performance
+I focus on performance from a development perspective. Some features become will dramatically more performant as in the upcomming months as they become native to platform implementations and don't need to be transplied to work. Other aspects could be improved through caching and memoization.  
+
+I chose React as a rendering platform because of it's stateful rendereing model -- it's a happy coincidence allows for efficient client-side rendereing.
+
 ##Part One. -- Concepts
 
 ###Functional Programming
@@ -142,8 +147,7 @@ ReactDOM.render(Messages(), document.getElementById('react-render-target'));
 
 ####Styling
 
-Using some of the newer features of CSS (provided by our build scripts), we can allow our styles to mirror the structure of our visual components. The following CSS maps directly to each component of
-
+Using some of the newer features of CSS (provided by our build scripts), we can allow our styles to mirror the structure of our visual components. The following CSS maps directly to each component.
 
 ```css
 /* file: button.css */
@@ -178,7 +182,14 @@ body{
 }
 ```
 
-Some are very much against using processors expand nested CSS due to performance issues that may arise. It's entirely possible to avoid nesting all together:
+
+Avoiding css selectors and ids in favor of standard tag selectors, along with using nested css allows you to take advantage of the semantic web and create an application who's content does noes not depend upon code in the styles.
+
+However; as demonstrated above, it's useful to attach a class corresponding the name of a rendered component to its top level component, especially if your component is ultimately composed of solely html.
+
+This is not necessary when using custom web components, as those can be styled using their custom tag name.
+
+Some are very much against using processors to expand nested CSS due to performance issues that may arise. It's entirely possible to avoid nesting all together, though you may lose some advantages:
 
 ```css
 /* file: message-application-no-nesting.css */

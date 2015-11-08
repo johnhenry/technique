@@ -4,7 +4,7 @@ import koa        from 'koa';
 import koaStatic  from 'koa-static';
 import Router     from 'koa-router';
 import jsonBody   from 'koa-json-body';
-import controller from '../controller/todo-server';
+import controller from '../controller/todo-middleware';
 var router = new Router();
 koa()
   .use(koaStatic(path.resolve(__dirname , SERVER.STATICDIR)))

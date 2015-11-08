@@ -13,7 +13,7 @@ try{
   //01.1 Copy Assets
   fs.copySync(path.resolve(__filename, '../../assets'), output + 'assets');
   //01.2 Compile JS
-  require('./helpers/js')(path.resolve(__filename, '../../script/todo-server-client.js'), output).on('finish',function(){
+  require('./helpers/js')(path.resolve(__filename, '../../script/todo-server.js'), output).on('finish',function(){
     //01.3 Compile CSS
     require('./helpers/css')(path.resolve(__filename, '../../style/todo.css'), output).then(function(){
       require('babel-core/register')({
