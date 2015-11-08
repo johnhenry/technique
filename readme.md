@@ -361,6 +361,18 @@ Many of the above features are from version of [JavaScript]() and [CSS]() that a
 
 Most browsers will not currently work with my ahem, "future code", so I use build scripts to transpile it into code that has all of the desired features, but still works with most browsers.
 
+To use build scripts, on the command line, type ```npm bulid``` followed by the application name.
+
+```bash
+npm build <application>
+```
+
+To pass options, such as the help option, please pass '--' after the initial command.
+
+```bash
+npm build [application] -- --help
+```
+
 ###Browserify
 I also use build scripts to allow me to [import npm packages into my browser code](). This allows me to use a unified package manager for both browser and sever code. [Bower]() can still be used to download scripts, but  
 

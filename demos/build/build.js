@@ -6,8 +6,37 @@ var output = path.resolve(__dirname, OUTPUTDIR) + '/';
 var rmdir = require('./helpers/rmdir');
 
 var argv = require('yargs')
-  .default('parallel', false)
-  .alias('p', 'parallel')
+  .help('help')
+  .option('parallel', {
+    alias: 'p',
+    describe: 'run build processes in parallel',
+    default: false
+  })
+  .option('purge', {
+    alias: 'u',
+    describe: 'purge client folder before building',
+    default: true
+  })
+  .option('assets', {
+    alias: 'a',
+    describe: 'include assets',
+    default: true
+  })
+  .option('scripts', {
+    alias: 's',
+    describe: 'include scripts',
+    default: true
+  })
+  .option('styles', {
+    alias: 't',
+    describe: 'include styles',
+    default: true
+  })
+  .option('html', {
+    alias: 'h',
+    describe: 'include html',
+    default: true
+  })
   .argv;
 var APPLICATION = argv._[0] || '';
 var PARALLEL = argv['parallel'];
@@ -48,28 +77,12 @@ switch(APPLICATION){
     break;
 };
 
-if(argv['assets'] === false){
-  ASSETS_TARGET = '';
-  console.log('skipping assets')
-};
-if(argv['scripts'] === false){
-  JS_TARGET = '';
-  console.log('skipping scripts')
-};
-if(argv['styles'] === false){
-  CSS_TARGET = '';
-  console.log('skipping styles')
-};
-if(argv['html'] === false){
-  HTML_HELPER = '';
-  console.log('skipping html')
-};
-
 var moveAssets = function(ASSETS_TARGET){
   if(!ASSETS_TARGET) return;
   console.log('moving assets');
+  var TARGET = output + ASSETS_TARGET;
   try{
-    fs.mkdirSync(output + 'assets');
+  if(!fs.existsSync(TARGET)) fs.mkdirSync(TARGET);
     //01.1 Copy Assets
     fs.copySync(path.resolve(__filename, '../../' + ASSETS_TARGET), output + 'assets');
   }catch(error){
@@ -108,8 +121,30 @@ var compileHTML = function(HTML_HELPER){
   }
 }
 try{
-  rmdir(output);
-  fs.mkdirSync(output);
+
+  if(argv['assets'] === false){
+    ASSETS_TARGET = '';
+    console.log('skipping assets')
+  };
+  if(argv['scripts'] === false){
+    JS_TARGET = '';
+    console.log('skipping scripts')
+  };
+  if(argv['styles'] === false){
+    CSS_TARGET = '';
+    console.log('skipping styles')
+  };
+  if(argv['html'] === false){
+    HTML_HELPER = '';
+    console.log('skipping html')
+  };
+  if(argv['purge'] === false){
+    console.log('skipping purge');
+  }else{
+    rmdir(output);
+  };
+  if(!fs.existsSync(output)) fs.mkdirSync(output);
+
   moveAssets(ASSETS_TARGET);
   //01.0 Create Folders
   if(PARALLEL){
@@ -127,5 +162,4 @@ try{
   }
 }catch(error){
   console.error(error);
-  rmdir(output);
 }

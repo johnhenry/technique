@@ -24,13 +24,19 @@ getBlogData(path.resolve(__filename,'../../../data')).then(posts => {
               BLOG.EMBED);
       var filePath = output + (index === 0 ?  'index' : index + 1) + ".html";
       index++;
-      fs.writeFileSync(
-        filePath,
-        file
-        );
+      try{
+        fs.writeFileSync(
+          filePath,
+          file
+          );
+      }catch(e){
+        console.log(error);
+      }
   };
   //Individual Pages
-  fs.mkdirSync(output + 'post');
+
+  if(!fs.existsSync(output + 'post')) fs.mkdirSync(output + 'post');
+
   posts.forEach((post, index, posts)=>{
     var file = renderPost({
                   index : index,
