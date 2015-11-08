@@ -397,7 +397,7 @@ These static applications are composed only of static pages. You _may_ be able t
 Build With:
 
 ```bash
-  npm run build-todo-static
+  npm run build todo-static
 ```
 
 ####Run
@@ -428,7 +428,7 @@ To add a todo, the user types interacts with the page (the view) by typing the b
 ####Build
 
 ```bash
-  npm run build-blog-static
+  npm run build blog-static
 ```
 
 ####Run
@@ -475,7 +475,7 @@ Pages are statically generated with the build script, so in order to modify the 
 ####Build
 
 ```bash
-  npm run build-todo-static
+  npm run build todo-static
 ```
 
 ####Run
@@ -512,7 +512,7 @@ Rather than the controller processing actions on the page, it passes them over t
 ####Build
 
 ```bash
-  npm run build-blog-server
+  npm run build blog-server
 ```
 
 ####Run

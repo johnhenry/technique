@@ -3,10 +3,10 @@ export const SERVER = {
       STATICDIR       : './../client'
   };
 export const TODO = {
-  ATTACH  : ['./script.js',{'script' : './script.js', defer:true }],
-  EMBED : ['./style.css'],
+  ATTACH  : ['./style.css', {'script' : './script.js', defer:true }],
+  EMBED : [],
   ATTACHBODY:[],
-  EMBEDBODY: ['./script.js']
+  EMBEDBODY: []
 }
 export const BLOG = {
     ATTACH  : ['./style.css'],

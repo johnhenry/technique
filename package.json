@@ -4,10 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-todo-static": "node demos/build/todo-static",
-    "build-todo-server": "node demos/build/todo-server",
-    "build-blog-static": "node demos/build/blog-static",
-    "build-blog-server": "node demos/build/blog-server",
+    "build": "node demos/build/build",
     "start-server-todo": "node demos/server/start-todo",
     "start-server-blog": "node demos/server/start-blog",
     "lint-client": "eslint script/**",
@@ -48,6 +45,7 @@
     "postcss-nested": "^1.0.0",
     "react": "^0.14.1",
     "react-dom": "^0.14.0",
-    "yaml-front-matter": "^3.2.3"
+    "yaml-front-matter": "^3.2.3",
+    "yargs": "^3.29.0"
   }
 }
