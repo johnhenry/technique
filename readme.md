@@ -407,7 +407,7 @@ Point a static server to the newly built 'static' folder.
 Or run
 
 ```bash
-  npm run start-server-todo
+  npm run serve
 ```
 and visit [127.0.0.1:3000](127.0.0.1:3000).
 
@@ -438,7 +438,7 @@ Point a static server to the newly built 'static' folder.
 Or run
 
 ```bash
-  npm run start-server-todo
+  npm run serve
 ```
 and visit [127.0.0.1:3000](127.0.0.1:3000).
 
@@ -481,7 +481,7 @@ Pages are statically generated with the build script, so in order to modify the 
 ####Run
 
 ```bash
-  npm run start-server-todo
+  npm run serve todo
 ```
 and visit [127.0.0.1:3000](127.0.0.1:3000).
 
@@ -518,7 +518,7 @@ Rather than the controller processing actions on the page, it passes them over t
 ####Run
 
 ```bash
-  npm run start-server-blog
+  npm run serve blog
 ```
 and visit [127.0.0.1:3000](127.0.0.1:3000).
 

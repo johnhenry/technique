@@ -1,4 +1,4 @@
-import {render, subscribe} from '../renderer/dom/todo-static'
+import {render, subscribe} from '../renderer/dom/todo-static';
 import window from '../script/window';
 var fetch = window.fetch;
 var subscription = action => {

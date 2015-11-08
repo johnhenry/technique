@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "node demos/build/build",
-    "start-server-todo": "node demos/server/start-todo",
-    "start-server-blog": "node demos/server/start-blog",
+    "serve": "node demos/server/serve",
     "lint-client": "eslint script/**",
     "lint-server": "eslint server/**",
-    "postinstall": "npm run build-todo-static"
+    "postinstall": "npm run build"
   },
   "repository": "https://github.com/johnhenry/technique",
   "engines": {

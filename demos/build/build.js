@@ -6,7 +6,7 @@ var output = path.resolve(__dirname, OUTPUTDIR) + '/';
 var rmdir = require('./helpers/rmdir');
 
 var argv = require('yargs').argv;
-var APPLICATION = argv._[0];
+var APPLICATION = argv._[0] || '';
 var PARALLEL = argv._[1] === 'parallel';
 var ASSETS_TARGET;
 var JS_TARGET;
@@ -14,26 +14,29 @@ var CSS_TARGET;
 var HTML_HELPER;
 
 switch(APPLICATION){
-  case undefined:
-  case 'undefined':
+  case '':
   case 'todo-static':
+    console.log('building todo-static');
     ASSETS_TARGET = 'assets';
     JS_TARGET = 'todo-static.js';
     CSS_TARGET = 'todo.css';
     HTML_HELPER = 'html.js';
     break;
   case 'todo-server':
+    console.log('building todo-server');
     ASSETS_TARGET = 'assets';
     JS_TARGET = 'todo-server.js';
     CSS_TARGET = 'todo.css';
     HTML_HELPER = 'html.js';
     break;
   case 'blog-static':
+    console.log('building blog-static');
     ASSETS_TARGET = 'assets';
     CSS_TARGET = 'blog.css';
     HTML_HELPER = 'html-blog.js';
     break;
   case 'blog-server':
+    console.log('building blog-server');
     ASSETS_TARGET = 'assets';
     CSS_TARGET = 'blog.css';
     break;
