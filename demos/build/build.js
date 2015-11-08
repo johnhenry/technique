@@ -4,7 +4,9 @@ var yargs = require('yargs');
 var OUTPUTDIR = '../client/';
 var output = path.resolve(__dirname, OUTPUTDIR) + '/';
 var rmdir = require('./helpers/rmdir');
-
+process.on('exit', function(){
+  verbose('...compliation complete.')
+})
 var argv = require('yargs')
   .help('help')
   .option('parallel', {
@@ -106,7 +108,7 @@ var compileJS = function(JS_TARGET){
   };
   verbose(' compling scripts...');
   return require('./helpers/js')(path.resolve(__filename, '../../script/' + JS_TARGET), output).on('finish', function(){
-    verbose(' ...scripts compiled');
+    verbose(' ...scripts compiled.');
   }).on('error', function(){
     throw new Error(`Error compiling Scripts: ${error}`);
   });
@@ -128,7 +130,7 @@ var compileHTML = function(HTML_HELPER){
   try{
     require('babel-core/register')({ignore: false})
     require('./helpers/' + HTML_HELPER);
-    verbose(' ... html compiled.');
+    verbose(' ...html compiled.');
   }catch(error){
     throw new Error(`Error compiling HTML: ${error}`);
   }
@@ -154,7 +156,7 @@ try{
   if(argv['purge'] === false){
     verbose('skipping purge');
   }else{
-    verbose('purgeing files...');
+    verbose('purging files...');
     rmdir(output);
     verbose('...purge complete.');
   };
@@ -166,13 +168,11 @@ try{
     compileJS(JS_TARGET);
     compileCSS(CSS_TARGET);
     compileHTML(HTML_HELPER);
-    verbose('...sequential compliation will complete...');
   }else{
     verbose('compiling sequentially...')
     compileJS(JS_TARGET).on('finish', function(){
       compileCSS(CSS_TARGET).then(function(){
         compileHTML(HTML_HELPER);
-        verbose('...sequential compliation complete.')
       });
     });
   }
