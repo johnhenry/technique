@@ -1,13 +1,8 @@
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import IndexPage from '../../component/index-page';
-import {injectStyle} from '../../script/inject-html';
-import {CLIENT}   from '../../settings';
+import {BLOG}   from '../../settings';
+import renderIndex from '../string/render-index-blog';
 export default context => state => {
-  var body = '<!doctype html>' + ReactDOMServer.renderToStaticMarkup(<IndexPage index={state.index} posts={state.posts} />);
-  body = injectStyle.apply(undefined, CLIENT.STYLES)(body);
   context.type = 'text/html';
   context.status = 200;
-  context.body = body;
+  context.body = renderIndex(state, BLOG.ATTACH, BLOG.EMBED, BLOG.ATTACHBODY, BLOG.EMBEDBODY);
   return state;
 };

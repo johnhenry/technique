@@ -2,14 +2,17 @@ export const SERVER = {
       PORT            : process.env.PORT || 3000,
       STATICDIR       : './../client'
   };
-export const CLIENT = {
-      SCRIPTS : ['https://cdnjs.cloudflare.com/ajax/libs/fetch/0.10.0/fetch.min.js'],
-      DEFEREDSCRIPTS         : ['./script.js'],
-      STYLES          : ['./style.css'],
-      INTERNALSCRIPTS   : [],
-      INTERNALSTYLES    : []
-  };
+export const TODO = {
+  ATTACH  : ['./script.js',{'script' : './script.js', defer:true }],
+  EMBED : ['./style.css'],
+  ATTACHBODY:[],
+  EMBEDBODY: ['./script.js']
+}
 export const BLOG = {
+    ATTACH  : ['./style.css'],
+    EMBED : [],
+    ATTACHBODY:[],
+    EMBEDBODY: [],
     ITEMSPERINDEXPAGE : 3,
     REVERSE           : false
   };

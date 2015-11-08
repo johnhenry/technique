@@ -1,16 +1,16 @@
 .TodoForm{
   width:100%;
-
   input[type=text]{
     color:green;
   }
   button{
     color:blue;
   }
-  button.PostTodo::before{
+  .PostTodo::before{
     content: "Post Todo";
   }
-  button.ClearTodo::before{
+  .ClearTodo::before{
+    @extend button;
     content: "Clear Todo";
   }
 }

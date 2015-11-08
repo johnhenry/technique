@@ -4,7 +4,7 @@ import getBlogData from '../../script/get-blog-data';
 import renderIndex from '../../renderer/string/render-index-blog';
 import renderPost from '../../renderer/string/render-post-blog';
 import {BLOG, SERVER, CLIENT}   from '../../settings';
-import {injectStyle} from '../../script/inject-html';
+
 var OUTPUTDIR = '../../demos/';
 var output = path.resolve(__dirname, OUTPUTDIR, SERVER.STATICDIR) + '/';
 getBlogData(path.resolve(__filename,'../../../data')).then(posts => {
@@ -19,8 +19,9 @@ getBlogData(path.resolve(__filename,'../../../data')).then(posts => {
                 index : index,
                 posts : postArray,
                 last : (i >= length - size)
-              });
-      file = injectStyle.apply(undefined, CLIENT.STYLES)(file);
+              },
+              BLOG.ATTACH,
+              BLOG.EMBED);
       var filePath = output + (index === 0 ?  'index' : index + 1) + ".html";
       index++;
       fs.writeFileSync(
@@ -36,8 +37,9 @@ getBlogData(path.resolve(__filename,'../../../data')).then(posts => {
                   post : post,
                   prev : posts[index - 1],
                   next : posts[index + 1]
-                });
-    file = injectStyle.apply(undefined, CLIENT.STYLES.map(s=> '../' + s))(file);
+                },
+                BLOG.ATTACH,
+                BLOG.EMBED);
     var filePath = output + '/post/' + post.slug + ".html";
     try{
       fs.writeFileSync(

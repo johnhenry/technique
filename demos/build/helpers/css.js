@@ -7,7 +7,7 @@ module.exports = function(input, output){
   var postcssNested = require('postcss-nested');
   var cssnano = require('cssnano');
   var autoprefixer = require('autoprefixer');
-  postcss([
+  return postcss([
     postcssImport
     ,postcssExtend
     ,cssNext()
@@ -23,5 +23,7 @@ module.exports = function(input, output){
   .then(function (result) {
       fs.writeFileSync(output + 'style.css', result.css);
       if ( result.map ) fs.writeFileSync(output + 'style.css.map', result.map);
+      block = false;
   }).catch(function(error){console.error(error)});
+
 }

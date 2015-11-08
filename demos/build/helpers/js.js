@@ -3,7 +3,7 @@ module.exports = function(input, output){
   var browserify = require('browserify');
   var babelify = require('babelify');
   var minifyify = require('minifyify');
-  browserify({debug:true})
+  return browserify({debug:true})
     .plugin('minifyify', {map: true, output: output + 'script.js.map'})
     .transform(babelify)
     .require(input, { entry: true })
