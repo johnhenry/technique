@@ -1,25 +1,30 @@
 footer{
   position:fixed;
   bottom:0;
+  right:10px;
   width:100%;
   text-align:right;
+  background-color:var(--background-color);
   *{
+    border:2px solid white;
     margin-right:10px;
   }
   .Home::before{
-    content:"Home"
+    position:fixed;
+    left:10px;
+    content:"\2302";
   }
   .Home{
 
   }
   .Prev::before{
-    content:"Previous"
+    content:"\2190";
   }
   .Prev{
 
   }
   .Next::before{
-    content:"Next"
+    content:"\2192";
   }
   .Next{
 

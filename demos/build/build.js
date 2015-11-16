@@ -4,9 +4,7 @@ var yargs = require('yargs');
 var OUTPUTDIR = '../client/';
 var output = path.resolve(__dirname, OUTPUTDIR) + '/';
 var rmdir = require('./helpers/rmdir');
-process.on('exit', function(){
-  verbose('...compliation complete.')
-})
+
 var argv = require('yargs')
   .help('help')
   .option('parallel', {
@@ -46,7 +44,9 @@ var argv = require('yargs')
   })
   .argv;
 var verbose = argv['verbose'] ? console.log.bind(console) : function(){};
-
+process.on('exit', function(){
+  verbose('...compliation complete.')
+})
 var APPLICATION = argv._[0] || '';
 var PARALLEL = argv['parallel'];
 var ASSETS_TARGET;

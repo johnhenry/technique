@@ -1,17 +1,26 @@
 html{
-    height:100%;
-
-    body{
-        height:100%;
-
-        div{
-          height:100%;
-
-          h1{
-
-          }
-          @import './todo/todo-list.css';
-          @import './todo/todo-form.css';
-        }
+  height: 100%;
+  font-family: arial;
+  *{
+    box-sizing:border-box;
+  }
+  body{
+    padding:0;
+    margin:0;
+    background-color: #6495ed;
+    height: 100%;
+    width: 100%;
+    h1{
+      text-align: center;
+      color: #000077;
     }
+    div{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height:100%;
+      padding:8px;
+      @import './todo/todo-application.css';
+    }
+  }
 }

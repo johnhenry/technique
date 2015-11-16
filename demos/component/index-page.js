@@ -6,17 +6,17 @@ var IndexPage = ({index, posts, last}) => {
     var linkIndex = 0;
     if(index !==0){
       foot.push(<a key={linkIndex++} className='Home' href='./'></a>);
-      foot.push(<a key={linkIndex++} className='Prev' href={ index === 1 ? './' : index + '.html' } />);
+      foot.push(<a key={linkIndex++} className='Prev' title={'Page ' + String(index)} href={ index === 1 ? './' : index + '.html' } />);
     }
     if(!last)
-      foot.push(<a key={linkIndex++} className='Next' href={ './' + (index + 2) + '.html' } />);
-    return <html>
+      foot.push(<a key={linkIndex++} className='Next' title={'Page ' + String(index + 2)} href={ './' + (index + 2) + '.html' } />);
+    return <html >
       <head>
         <meta charSet='UTF-8' />
         <title>Page {index + 1}</title>
       </head>
-      <body>
-        <h1><a href='/'>Blog</a></h1>
+      <body className='IndexPage'>
+        <h1><a href='/'></a></h1>
         <ul>
           {posts}
         </ul>

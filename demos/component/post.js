@@ -16,6 +16,8 @@ var Post = ({post, className}) => {
       }
     }).filter(_=>_);
     return <article className={className}>
+      <h1 title={post.title}>{post.title}</h1>
+      <h2 title={post.author}>by {post.author}</h2>
       {markdown}
     </article>
   };

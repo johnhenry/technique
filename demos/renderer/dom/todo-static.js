@@ -12,11 +12,7 @@ var runSubscription = function(data){
 var elementDefinition = {
   handleSubmit: runSubscription,
   render: function(){
-    var i = 0;
-    var todos = this.props.todos.map(todo => {
-      return <li key={i++}>{todo}</li>;
-    });
-    return <div>
+    return <div className='TodoApplication'>
         <h1>{this.props.name}</h1>
         <TodoList todos={this.props.todos} className='TodoList' />
         <TodoForm onSubmit={this.handleSubmit} className='TodoForm' />
