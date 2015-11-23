@@ -1,8 +1,8 @@
-import {subscriptions, send} from '../controller/todo-static.js';
-import window from './window';
+import {send, subscriptions} from '../controller/todo-static.js';
 import {render, subscriptions as viewSubscriptions} from '../renderer/dom/todo-static.js';
+import window from './window';
 const document = window.document;
 const renderTarget = document.getElementsByTagName('div')[0];
 subscriptions.push(render(renderTarget))
 viewSubscriptions.push(send);
-send({type: 'reset'});
+send();
