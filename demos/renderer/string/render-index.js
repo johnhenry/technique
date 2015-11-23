@@ -6,8 +6,8 @@ import embed  from '../../script/external-script-embed';
 import attach from '../../script/external-script-attach';
 import parser from '../../script/settings-script-reader';
 import append from '../../script/append';
-var render =  (data, at, em, atb, emb) => {
-  var sources = (at || [])
+export default (data, at, em, atb, emb) => {
+  const sources = (at || [])
     .map(parser)
     .map(s=>{
       s.source = "../" + s.source
@@ -22,7 +22,7 @@ var render =  (data, at, em, atb, emb) => {
     })
     .map(embed)
     .join('');
-    var bsources = (atb || [])
+    const bsources = (atb || [])
       .map(parser)
       .map(s=>{
         s.source = "../" + s.source
@@ -38,5 +38,4 @@ var render =  (data, at, em, atb, emb) => {
       .map(embed)
       .join('');
     return '<!doctype html>' +   append(ReactDOMServer.renderToStaticMarkup(<Index {...data}/>), sources, bsources);
-}
-export default render;
+};

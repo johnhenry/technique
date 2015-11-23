@@ -18,25 +18,23 @@ schema:
 
     }
 */
-
+import clone from './clone';
 const BASESTATE = {
   name: 'Todo List'
   ,todos: []
 };
-var cloneState = state => {return JSON.parse(JSON.stringify(state))};
-var actionDictionary = {
+export default {
   __proto__ : null
   ,'update-name': name => state => {
-    var newState = cloneState(state);
+    const newState = clone(state);
     newState.name = name;
     return newState;
   }
   ,'add-todo' : todo => state => {
-    var newState = cloneState(state);
+    const newState = clone(state);
     newState.todos.push(todo);
     return newState;
   }
-  ,'reset': () => () => cloneState(BASESTATE)
+  ,'reset': () => () => clone(BASESTATE)
 
 };
-export default actionDictionary;

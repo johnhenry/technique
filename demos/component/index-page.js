@@ -1,8 +1,8 @@
 import React        from 'react';
 import PostSummary  from './post-summary'
-var IndexPage = ({index, posts, last}) => {
+export default ({index, posts, last}) => {
     posts = (posts || []).map((post, i) => <PostSummary key={i} post={post} className="PostSummary"/>);
-    var foot = [];
+    const foot = [];
     var linkIndex = 0;
     if(index !==0){
       foot.push(<a key={linkIndex++} className='Home' href='./'></a>);
@@ -24,4 +24,3 @@ var IndexPage = ({index, posts, last}) => {
       </body>
     </html>
   };
-export default IndexPage;

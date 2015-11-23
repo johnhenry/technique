@@ -1,5 +1,5 @@
 import React from 'react';
-var Head = React.createClass({
+export default React.createClass({
   render: function(){
     return <head>
       <meta charSet='UTF-8' />
@@ -7,4 +7,3 @@ var Head = React.createClass({
     </head>;
   }
 });
-export default Head;

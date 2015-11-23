@@ -1,13 +1,12 @@
 import getState from '../script/state-blog';
 import getRenderer from '../script/get-renderer-blog';
-var subscription = function * (){
+export default function * (){
   try{
-    var state = yield getState(this);
-    var render = yield getRenderer(this);
+    const state = yield getState(this);
+    const render = yield getRenderer(this);
     return render(state);
   }catch(error){
     this.statusCode = 404;
     this.body = error;
   }
 };
-export default subscription;

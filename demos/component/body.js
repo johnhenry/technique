@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoList from './todo-list';
 import TodoForm from './todo-form';
-var Body = React.createClass({
+export default React.createClass({
   render: function(){
     return <body>
       <h1>Todo Applicaiton</h1>
@@ -15,4 +15,3 @@ var Body = React.createClass({
     </body>;
   }
 });
-export default Body;

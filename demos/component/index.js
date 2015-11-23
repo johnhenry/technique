@@ -1,7 +1,7 @@
 import React from 'react';
 import Body from './body';
 import Head from './head';
-var Index = React.createClass({
+export default React.createClass({
   render: function(){
     return <html lang='en'>
       <Head />
@@ -9,4 +9,3 @@ var Index = React.createClass({
     </html>;
   }
 });
-export default Index;

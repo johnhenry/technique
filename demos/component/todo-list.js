@@ -1,6 +1,6 @@
-var React = require('react');
-var TodoList = ({todos, className}) => {
-    var i=0;
+const React = require('react');
+export default ({todos, className}) => {
+    var i = 0;
     todos = (todos || []).map(todo => {
       return <li key={i++}>{todo}</li>;
     });
@@ -8,4 +8,3 @@ var TodoList = ({todos, className}) => {
           {todos}
         </ul>;
   };
-export default TodoList;

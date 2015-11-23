@@ -1,8 +1,8 @@
-var React = require('react');
-var TodoForm = React.createClass({
+const React = require('react');
+export default React.createClass({
   postTodo: function(e){
     e.preventDefault();
-    var payload = this.refs.todo.value.trim();
+    const payload = this.refs.todo.value.trim();
     this.refs.todo.value = '';
     return this.props.onSubmit(
       {
@@ -21,5 +21,4 @@ var TodoForm = React.createClass({
           <button type="button" className='ClearTodo' onClick={this.clearTodos} ></button>
         </form>;
   }
-})
-export default TodoForm;
+});

@@ -1,4 +1,5 @@
 import fetch from './window/fetch';
+import JSON from './window/JSON';
 export default action => fetch('/', {
     method: 'post',
     headers: {

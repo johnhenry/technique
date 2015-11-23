@@ -6,6 +6,7 @@ A list of plans and things to do.
   - Ad documentation for blog server
   - Re-work documentation to focus on techniques rather than applications
   - Add tests
+  - Add jsdoc descriptions to each module
 
 ##Build
   - Update build scripts to use only es6

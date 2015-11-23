@@ -1,6 +1,6 @@
 import getUpdate from '../script/get-update';
 import {getState, setState} from '../script/state-todo';
-export var subscriptions = [];
+export const subscriptions = [];
 export const send = action => getState()
   .then(state => getUpdate(action || {type: 'reset'})
     .then(update => setState(update(state))

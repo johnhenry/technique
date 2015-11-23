@@ -5,7 +5,8 @@ import koaStatic  from 'koa-static';
 import Router     from 'koa-router';
 import jsonBody   from 'koa-json-body';
 import controller from '../controller/todo-middleware';
-var router = new Router();
+//import JSON from '../script/this/JSON';
+const router = new Router();
 koa()
   .use(koaStatic(path.resolve(__dirname , SERVER.STATICDIR)))
   .use(jsonBody({ limit: '10kb' }))

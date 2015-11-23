@@ -1,11 +1,11 @@
 import React  from 'react';
 import Post   from './post';
-var PostPage = ({post, next, prev}) => {
-    var prerender = [];
+export default ({post, next, prev}) => {
+    const prerender = [];
     var linkIndex = 0;
     if(next)
       prerender.push(<link key={linkIndex++} rel='prerender' href={ './' + next.slug + '.html' } />)
-    var foot = [];
+    const foot = [];
     if(prev)
       foot.push(<a key={linkIndex++} className='Prev' href={ './' + prev.slug + '.html' } title={"Previous: " + prev.title}/>);
     if(next)
@@ -23,4 +23,3 @@ var PostPage = ({post, next, prev}) => {
       </body>
     </html>
   };
-export default PostPage;

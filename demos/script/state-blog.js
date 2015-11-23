@@ -6,31 +6,25 @@ var getBlogState = function(context){
   .then(posts => {
     if(BLOG.REVERSE) posts = posts.reverse();
     if(context.pageType === 'index'){
-      var index = context.index;
-      var length = posts.length;
-      var size = BLOG.ITEMSPERINDEXPAGE;
-      var postArray = posts.slice(index, index + size);
-      var state = {
-                index : index,
-                posts : postArray,
-                last : (index >= length - size)
-        };
-      return Promise.resolve(state);
+      return Promise.resolve({
+                index : context.index,
+                posts : posts.slice(index, index + size),
+                last : (index >= posts.length - BLOG.ITEMSPERINDEXPAGE)
+        });
     }
     if(context.pageType === 'post'){
-      var post;
       var index = 0;
+      var post;
       for(post of posts) {
         if(post.slug === context.slug) break;
         index++;
       }
-      var state = {
+      return Promise.resolve({
                     index : index
-                    ,post : post
+                    ,post : posts[index]
                     ,prev : posts[index - 1]
                     ,next : posts[index + 1]
-                  };
-      return Promise.resolve(state);
+                  });
     }
   })
 }

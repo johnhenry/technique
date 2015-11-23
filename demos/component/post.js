@@ -1,7 +1,7 @@
 import React from 'react';
-var Post = ({post, className}) => {
+export default ({post, className}) => {
     var key = 0;
-    var markdown = post.markdown.map(function(element){
+    const markdown = post.markdown.map(function(element){
       if(element === 'markdown') return undefined;
       switch(element[0]){
         case "header":
@@ -21,4 +21,3 @@ var Post = ({post, className}) => {
       {markdown}
     </article>
   };
-export default Post;
