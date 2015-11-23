@@ -19,11 +19,9 @@ var elementDefinition = {
     </div>;
   }
 };
-var renderTarget        = document.getElementsByTagName('div')[0];
 var ElementConstructor  = React.createClass(elementDefinition);
 var ElementFactory      = React.createFactory(ElementConstructor);
-var Renderer            = element => ReactDOM.render(element, renderTarget);
-export const render     = state => Renderer(ElementFactory(state));
+export const render     = renderTarget => state => ReactDOM.render(ElementFactory(state), renderTarget);
 export const subscribe  = callback => {
   subscriptions.push(callback);
 };

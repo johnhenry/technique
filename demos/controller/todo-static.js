@@ -1,13 +1,12 @@
 import getUpdate from '../script/get-update';
 import {getState, setState} from '../script/state-todo';
-import {render, subscribe} from '../renderer/dom/todo-static';
-var subscription = action => {
-  return getState().then(state=>{
-    getUpdate(action).then(update=>{
-      setState(update(state)).then(render)
-    });
-  });
+var subscriptions = [];
+export const send = action => {
+  return getState()
+  .then(state=>getUpdate(action)
+    .then(update=>setState(update(state))
+      .then(data =>subscriptions.forEach(subscription => subscription(data)))));
 };
-subscribe(subscription);
-var init = () => subscription({type: 'reset'});
-export default init;
+export const subscribe = callback => {
+  subscriptions.push(callback);
+};
