@@ -1,2 +1,2 @@
-import window from '../window';
+import window from './';
 export default window.document;

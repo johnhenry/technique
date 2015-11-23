@@ -255,8 +255,8 @@ export default TodoForm;
 ```javascript
 var React = require('react');
 var ReactDOM = require('react-dom');
-import TodoList from "./components/todo-list";
-import TodoForm from "./components/todo-form";
+import TodoList from './components/todo-list';
+import TodoForm from './components/todo-form';
 import document from './window/document';
 var subscriptions = [];
 var subscribe = callback => {
