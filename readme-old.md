@@ -257,8 +257,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 import TodoList from "./components/todo-list";
 import TodoForm from "./components/todo-form";
-import window from './window';
-var document = window.document;
+import document from './window/document';
 var subscriptions = [];
 var subscribe = callback => {
   subscriptions.push(callback);
@@ -386,8 +385,7 @@ The only thing that we do is modify the subscription function to forward actions
 ```javascript
 //filename:controller.server.js
 import {render, subscribe} from './renderer';
-import window from './window';
-var fetch = window.fetch;
+import fetch from './window/fetch';
 var subscription = action => {
   return fetch('/', {
       method: 'post',

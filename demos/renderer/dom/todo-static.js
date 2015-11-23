@@ -2,8 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 import TodoList from "../../component/todo-list";
 import TodoForm from "../../component/todo-form";
-import window from "../../script/window";
-var document = window.document;
+import document from '../../script/window/document';
 export const subscriptions = [];
 var runSubscription = function(data){
   return subscriptions.forEach(subscription => subscription(data));

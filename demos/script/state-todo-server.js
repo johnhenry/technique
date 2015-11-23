@@ -1,5 +1,4 @@
-import window from './window';
-const fetch = window.fetch;
+import fetch from './window/fetch';
 export default action => fetch('/', {
     method: 'post',
     headers: {
