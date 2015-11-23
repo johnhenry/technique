@@ -4,7 +4,7 @@ import TodoList from "../../component/todo-list";
 import TodoForm from "../../component/todo-form";
 import window from "../../script/window";
 var document = window.document;
-var subscriptions = [];
+export const subscriptions = [];
 var runSubscription = function(data){
   return subscriptions.forEach(subscription => subscription(data));
 };
@@ -22,6 +22,3 @@ var elementDefinition = {
 var ElementConstructor  = React.createClass(elementDefinition);
 var ElementFactory      = React.createFactory(ElementConstructor);
 export const render     = renderTarget => state => ReactDOM.render(ElementFactory(state), renderTarget);
-export const subscribe  = callback => {
-  subscriptions.push(callback);
-};
