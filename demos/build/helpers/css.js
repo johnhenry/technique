@@ -1,12 +1,12 @@
 module.exports = function(input, output){
-  var fs = require('fs-extra');
-  var postcss = require('postcss');
-  var postcssExtend = require('postcss-extend');
-  var postcssImport = require('postcss-import');
-  var cssNext = require('cssnext');
-  var postcssNested = require('postcss-nested');
-  var cssnano = require('cssnano');
-  var autoprefixer = require('autoprefixer');
+  const fs = require('fs-extra');
+  const postcss = require('postcss');
+  const postcssExtend = require('postcss-extend');
+  const postcssImport = require('postcss-import');
+  const cssNext = require('cssnext');
+  const postcssNested = require('postcss-nested');
+  const cssnano = require('cssnano');
+  const autoprefixer = require('autoprefixer');
   return postcss([
     postcssImport
     ,postcssExtend

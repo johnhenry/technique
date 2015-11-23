@@ -1,11 +1,11 @@
-var fs = require('fs-extra');
-var path = require('path');
-var yargs = require('yargs');
-var OUTPUTDIR = '../client/';
-var output = path.resolve(__dirname, OUTPUTDIR) + '/';
-var rmdir = require('./helpers/rmdir');
+const fs = require('fs-extra');
+const path = require('path');
+const yargs = require('yargs');
+const OUTPUTDIR = '../client/';
+const output = path.resolve(__dirname, OUTPUTDIR) + '/';
+const rmdir = require('./helpers/rmdir');
 
-var argv = require('yargs')
+const argv = require('yargs')
   .help('help')
   .option('parallel', {
     alias: 'p',
@@ -43,12 +43,12 @@ var argv = require('yargs')
     default: true
   })
   .argv;
-var verbose = argv['verbose'] ? console.log.bind(console) : function(){};
+const verbose = argv['verbose'] ? console.log.bind(console) : function(){};
 process.on('exit', function(){
   verbose('...compliation complete.')
 })
-var APPLICATION = argv._[0] || '';
-var PARALLEL = argv['parallel'];
+const APPLICATION = argv._[0] || '';
+const PARALLEL = argv['parallel'];
 var ASSETS_TARGET;
 var JS_TARGET;
 var CSS_TARGET;
@@ -86,10 +86,10 @@ switch(APPLICATION){
     break;
 };
 
-var moveAssets = function(ASSETS_TARGET){
+const moveAssets = function(ASSETS_TARGET){
   if(!ASSETS_TARGET) return;
   verbose('moving assets...');
-  var TARGET = output + ASSETS_TARGET;
+  const TARGET = output + ASSETS_TARGET;
   try{
   if(!fs.existsSync(TARGET)) fs.mkdirSync(TARGET);
     //01.1 Copy Assets
@@ -100,7 +100,7 @@ var moveAssets = function(ASSETS_TARGET){
   verbose('asset move complete...');
 };
 
-var compileJS = function(JS_TARGET){
+const compileJS = function(JS_TARGET){
   if(!JS_TARGET) return {
     on:function(event, handler){
       handler();
@@ -114,7 +114,7 @@ var compileJS = function(JS_TARGET){
   });
 };
 
-var compileCSS = function(CSS_TARGET){
+const compileCSS = function(CSS_TARGET){
   if(!CSS_TARGET) return Promise.resolve();
   verbose(' compling styles...');
   return require('./helpers/css')(path.resolve(__filename, '../../style/' + CSS_TARGET), output).then(function(){
@@ -124,7 +124,7 @@ var compileCSS = function(CSS_TARGET){
   });
 };
 
-var compileHTML = function(HTML_HELPER){
+const compileHTML = function(HTML_HELPER){
   if(!HTML_HELPER) return;
   verbose(' compling html...');
   try{

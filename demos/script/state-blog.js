@@ -8,8 +8,10 @@ var getBlogState = function(context){
     if(context.pageType === 'index'){
       return Promise.resolve({
                 index : context.index,
-                posts : posts.slice(index, index + size),
-                last : (index >= posts.length - BLOG.ITEMSPERINDEXPAGE)
+                posts : posts.slice(
+                  context.index,
+                  context.index + BLOG.ITEMSPERINDEXPAGE),
+                last : (context.index >= posts.length - BLOG.ITEMSPERINDEXPAGE)
         });
     }
     if(context.pageType === 'post'){

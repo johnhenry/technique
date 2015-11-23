@@ -1,8 +1,8 @@
 module.exports = function(input, output){
-  var fs = require('fs-extra');
-  var browserify = require('browserify');
-  var babelify = require('babelify');
-  var minifyify = require('minifyify');
+  const fs = require('fs-extra');
+  const browserify = require('browserify');
+  const babelify = require('babelify');
+  const minifyify = require('minifyify');
   return browserify({debug:true})
     .plugin('minifyify', {map: true, output: output + 'script.js.map'})
     .transform(babelify)
