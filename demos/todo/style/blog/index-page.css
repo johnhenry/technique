@@ -1,0 +1,7 @@
+body.IndexPage{
+  ul{
+    list-style: none;
+    padding:0;
+    @import './post-summary.css';
+  }
+}

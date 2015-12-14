@@ -1,0 +1,41 @@
+{
+  "name"  : "",
+  "dir"   : "www",
+  "purge" : true,
+  "nails" : [
+    {
+      "plugin" : "nail-js-edge",
+      "tag"    : ["todo-static", "testing"],
+      "babelify" : true,
+      "debug":true,
+      "source" : "./script/todo-static.js"
+    },
+    {
+      "plugin" : "nail-js-edge",
+      "tag"    : ["todo-server"],
+      "babelify" : true,
+      "source" : "./script/todo-server.js"
+    },
+    {
+      "plugin" : "nail-css-edge",
+      "tag"    :  ["todo-static", "todo-server"],
+      "source" : "./style/todo.css"
+    },
+    {
+      "plugin"     : "./nail-static-react",
+      "tag"        : ["todo-static", "todo-server"],
+      "source"       : {},
+      "data-source": "",
+      "component"  : "./component/todo",
+      "attach"     : [
+        "./style.css",
+        {
+          "script" : "./script.js",
+          "defer"  : true
+        }],
+      "embed"      : [],
+      "attachbody" : [],
+      "embedbody"  : []
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name"  : "",
+  "dir"   : "www",
+  "purge" : true,
+  "nails" : [
+    {
+      "plugin" : "nail-css-edge",
+      "tag"    : ["blog-static", "blog-server"],
+      "source" : "./style/blog.css"
+    },
+    {
+      "plugin"       : "./nail-static-react",
+      "tag"          : ["blog-static"],
+
+      "mode"         : "blog",
+      "postcomponent": "./component/blog-post",
+      "itemsperpage" : 3,
+      "reverse"      : false,
+      "source"       : "./markdown",
+
+      "component"    : "./component/blog-index",
+      "attach"       : ["./style.css"],
+      "embed"        : [],
+      "attachbody"   : [],
+      "embedbody"    : []
+    }
+  ]
+}

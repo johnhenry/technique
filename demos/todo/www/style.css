@@ -1,0 +1,70 @@
+html{
+  height: 100%;
+  font-family: arial;
+}
+html *{
+  box-sizing:border-box;
+}
+html body{
+  padding:0;
+  margin:0;
+  background-color: #6495ed;
+  height: 100%;
+  width: 100%;
+}
+html body h1{
+  text-align: center;
+  color: #000077;
+}
+html body div{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height:100%;
+  padding:8px;
+}
+html body div .TodoApplication{
+  display: block;
+  background-color: #ffffff;
+  border-radius: 8px;
+  max-height: 50%;
+  box-shadow: 4px 4px 2px 0px rgba(0,0,0,0.75);
+}
+html body div .TodoApplication h1{
+  text-align: center;
+  color:gray;
+}
+html body div .TodoApplication .TodoList{
+  width:100%;
+  padding:0;
+}
+html body div .TodoApplication .TodoList li{
+  color: #770000;
+  list-style: none;
+}
+html body div .TodoApplication .TodoForm{
+  width:100%;
+}
+html body div .TodoApplication .TodoForm input[type=text]{
+  color:green;
+}
+html body div .TodoApplication .TodoForm button, html body div .TodoApplication .TodoForm .PostTodo:before, html body div .TodoApplication .TodoForm .ClearTodo:before{
+  color:blue;
+}
+html body div .TodoApplication .TodoForm .PostTodo:before{
+  content: "Post Todo";
+}
+html body div .TodoApplication .TodoForm .ClearTodo:before{
+  content: "Clear Todo";
+}
+
+/*# sourceMappingURL=style.css.map */

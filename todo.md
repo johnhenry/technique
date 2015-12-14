@@ -9,11 +9,9 @@ A list of plans and things to do.
   - Add jsdoc descriptions to each module
 
 ##Build
-  - Update build scripts to use only es6
-    - This may have to wait until node fully supports es6
+
 
 ###Script
-  - Add Typescript Support
 
 ###Style
 
@@ -21,7 +19,6 @@ A list of plans and things to do.
 
 ###Assets
 
-
-##Clients( \_client, \_blog)
+##Clients
   - Set .bowerrc files to save automatically
     - [(May not be possible yet)](https://github.com/bower/bower/issues/1040)

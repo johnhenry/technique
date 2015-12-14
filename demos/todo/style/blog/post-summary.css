@@ -1,0 +1,8 @@
+li.PostSummary{
+  border:none;
+  border-bottom: 1px solid var(--accent-color);
+  padding:8px;
+  margin:8px;
+  min-height:300px;
+  max-width:600px;
+}
