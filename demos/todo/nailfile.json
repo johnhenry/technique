@@ -5,7 +5,7 @@
   "nails" : [
     {
       "plugin" : "nail-js-edge",
-      "tag"    : ["todo-static", "testing"],
+      "tag"    : ["todo-static"],
       "babelify" : true,
       "debug":true,
       "source" : "./script/todo-static.js"
@@ -15,6 +15,12 @@
       "tag"    : ["todo-server"],
       "babelify" : true,
       "source" : "./script/todo-server.js"
+    },
+    {
+      "plugin" : "nail-js-edge",
+      "tag"    : ["todo-continuous",  "testing"],
+      "babelify" : true,
+      "source" : "./script/todo-continuous.js"
     },
     {
       "plugin" : "nail-css-edge",

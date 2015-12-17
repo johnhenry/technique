@@ -119,31 +119,31 @@ var getState = context => Promise.resolve(state);
 var setState = newState => Promise.resolve(state = newState);
 export default {getState, setState};
 ```
-#####Controller, Actions and Schema
+#####Controller, Instructions and Schema
 
-The controller must modify the state, but needs some sort of trigger telling it how to modify the state. We do this by creating a map between *actions* and functions that modify state with an action dictionary.
+The controller must modify the state, but needs some sort of trigger telling it how to modify the state. We do this by creating a map between *instructions* and functions that modify state with an instruction dictionary.
 
-Like state, actions can be anything, but we use JavaScript Objects for simplicity.
-Also, like state, it is convenient to define a schema for actions.
+Like state, instructions can be anything, but we use JavaScript Objects for simplicity.
+Also, like state, it is convenient to define a schema for instructions.
 
 ```javascript
-//filename:action-dictionary.js
+//filename:instruction-dictionary.js
 /*
 schema:
-  action:
+  instruction:
   {
     type: Strut ['update-name', 'add-todo'],
     payload: *
   }
-    action(type='add-todo'):
+    instruction(type='add-todo'):
     {
       payload: String
     }
-    action(type='update-name'):
+    instruction(type='update-name'):
     {
       payload: String
     }
-    action(type='reset'):
+    instruction(type='reset'):
     {
 
     }
@@ -153,7 +153,7 @@ const BASESTATE = {
   ,todos: []
 };
 var cloneState = state => {return JSON.parse(JSON.stringify(state))};
-var actionDictionary = {
+var instructionDictionary = {
   __proto__ : null
   ,'update-name': name => state => {
     var newState = cloneState(state);
@@ -168,30 +168,30 @@ var actionDictionary = {
   ,'reset': () => () => cloneState(BASESTATE)
 
 };
-export default actionDictionary;
+export default instructionDictionary;
 ```
 
-Now that we have the action dictionary, we want to asynchronously resolve the action into a function, as we do so with getUpdate.
+Now that we have the instruction dictionary, we want to asynchronously resolve the instruction into a function, as we do so with getUpdate.
 
 ```javascript
 //filename:get-update.js
-import actionDictionary from './action-dictionary';
-var getUpdate = action => Promise.resolve(actionDictionary[action.type](action.payload));
+import instructionDictionary from './instruction-dictionary';
+var getUpdate = instruction => Promise.resolve(instructionDictionary[instruction.type](instruction.payload));
 export default getUpdate;
 ```
 
 Well soon define how the renderer works. For now, that it exports two functions for communication:
  - the _render_ function accepts state and renders it for the user to experience.
- - the _subscribe_ function allows a function to subscribe to actions from the view. We pass a subscription function to the subscribe function. The subscription function updates the state, and passes it to the renderer whenever it receives an action.
+ - the _subscribe_ function allows a function to subscribe to instructions from the view. We pass a subscription function to the subscribe function. The subscription function updates the state, and passes it to the renderer whenever it receives an instruction.
 
 ```javascript
 //filename:controller.js
 import getUpdate from './get-update';
 import {getState, setState} from './state';
 import {render, subscribe} from './renderer';
-var subscription = action => {
+var subscription = instruction => {
   return getState().then(state=>{
-    getUpdate(action).then(update=>{
+    getUpdate(instruction).then(update=>{
       setState(update(state)).then(render)
     });
   });
@@ -288,7 +288,7 @@ var render              = state => Renderer(ElementFactory(state));
 export default {render, subscribe};
 ```
 
-Note the renderer also exports a subscribe function that allows an outside function to subscribe to actions emitted by the renderer.
+Note the renderer also exports a subscribe function that allows an outside function to subscribe to instructions emitted by the renderer.
 
 
 ###Components, Styling and Modularity
@@ -380,19 +380,19 @@ For this application, state is handled on the server rather than the client, but
 
 #####Controller - Client
 Because state is handled and updates are handles on the server, we can leave these out.
-The only thing that we do is modify the subscription function to forward actions to the server and renders the response.
+The only thing that we do is modify the subscription function to forward instructions to the server and renders the response.
 
 ```javascript
 //filename:controller.server.js
 import {render, subscribe} from './renderer';
 import fetch from './window/fetch';
-var subscription = action => {
+var subscription = instruction => {
   return fetch('/', {
       method: 'post',
       headers: {
         "Content-type": "application/json"
       },
-      body: action ? JSON.stringify(action) : action
+      body: instruction ? JSON.stringify(instruction) : instruction
     })
     .then(response => response.json())
     .then(render);
@@ -408,7 +408,7 @@ Note: rather than accessing the _window_ object globally, we export it from a mo
 #####Controller - Server
 Like _state_, _updates_ are handled on the server rather than the client, but in exactly the same way. So we can use the code from the client's _get-update.js_ on the without modification as well.
 
-A slight change is the source of _actions_ -- we'll set up our _subscription_ function as koa middleware, and have it will respond to _requests_ rather than actions.
+A slight change is the source of _instructions_ -- we'll set up our _subscription_ function as koa middleware, and have it will respond to _requests_ rather than instructions.
 
 
 Aside from these minor changes, the controller on the client and the controller on the server are very similar.
@@ -468,7 +468,7 @@ export default context => state => {
 
 #####Renderer - Client
 
-There is no change in the renderer for the client. It accepts a state and emits actions in the same way as the previous application.
+There is no change in the renderer for the client. It accepts a state and emits instructions in the same way as the previous application.
 
 
 

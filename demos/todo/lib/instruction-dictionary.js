@@ -1,28 +1,25 @@
 /*
 schema:
-  action:
+  instruction:
   {
     type: Strut ['update-name', 'add-todo'],
     payload: *
   }
-    action(type='add-todo'):
+    instruction(type='add-todo'):
     {
       payload: String
     }
-    action(type='update-name'):
+    instruction(type='update-name'):
     {
       payload: String
     }
-    action(type='reset'):
+    instruction(type='reset'):
     {
 
     }
 */
 import clone from './clone';
-const BASESTATE = {
-  name: 'Todo List'
-  ,todos: []
-};
+import BASESTATE from './BASESTATE';
 export default {
   __proto__ : null
   ,'update-name': name => state => {
@@ -35,6 +32,11 @@ export default {
     newState.todos.push(todo);
     return newState;
   }
-  ,'reset': () => () => clone(BASESTATE)
-
+  ,'clear-todos' : todo => state => {
+    const newState = clone(state);
+    newState.todos = [];
+    return newState;
+  }
+  ,'reset': () => () => BASESTATE
+  ,'no-update': () => state => state
 };

@@ -1,7 +1,10 @@
 import document from '../lib/window/document';
-import {send, subscriptions} from '../controller/todo-static.js';
 import createRenderer from '../renderer/dom/todo-static.jsx';
+import createController from '../controller/todo-static.js';
+import state from '../lib/state';
+import BASESTATE from '../lib/BASESTATE';
+const controller = createController(state(BASESTATE));
 const view = createRenderer(document.getElementsByTagName('div')[0]);
-subscriptions.push(view.render);
-view.subscriptions.push(send);
-send();
+controller.subscribers.push(view.send);
+view.subscribers.push(controller.send);
+controller.send();

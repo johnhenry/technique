@@ -5,7 +5,7 @@ import koaStatic  from 'koa-static';
 import jsonBody   from 'koa-json-body';
 import BASESTATE  from '../lib/BASESTATE';
 import state      from '../lib/state';
-import controller from '../controller/todo-middleware';
+import controller from '../controller/todo-continuous';
 import JSON       from '../lib/JSON';
 koa()
   .use(koaStatic(path.resolve(__dirname , SERVER.STATICDIR)))

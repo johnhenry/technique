@@ -1,7 +1,19 @@
 import getUpdate from '../lib/get-update';
-import {getState, setState} from '../lib/state-todo';
-export const subscriptions = [];
-export const send = action => getState()
-  .then(state => getUpdate(action || {type: 'reset'})
-    .then(update => setState(update(state))
-      .then(data => subscriptions.forEach(subscription => subscription(data)))));
+export default(state)=>{
+  const subscribers = [];
+  const send = instruction => {
+    return state.get()
+      .then(currentstate => {
+        return getUpdate(instruction)
+        .then(update => {
+          return state.set(update(currentstate))
+          .then(data => {
+            return subscribers.forEach(subscriber => subscriber(data))
+          })})
+        });
+  }
+  return{
+    send,
+    subscribers
+  }
+}

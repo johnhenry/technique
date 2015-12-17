@@ -1,0 +1,92 @@
+*{
+  box-sizing: border-box;
+}
+html{
+  font-size:100%;
+  font-family:Arial;
+}
+html body{
+  background-color: white;
+  margin:0;
+  padding-top:40px;
+}
+html body a{
+  color: gray;
+  text-decoration: none;
+}
+html body >h1{
+  position:fixed;
+  top:0px;
+  left:0px;
+  background-color: white;
+  display:block;
+  margin:0px;
+  padding:8px;
+  width:100%;
+  height:48px;
+  box-shadow: 0px 1px 1px 0px gray;
+}
+html body >h1 a:before{
+  content:'Blog';
+}
+html body footer{
+  position:fixed;
+  bottom:0;
+  right:10px;
+  width:100%;
+  text-align:right;
+  background-color: white;
+}
+html body footer *{
+  border:2px solid white;
+  margin-right:10px;
+}
+html body footer .Home:before{
+  position:fixed;
+  left:10px;
+  content:"\2302";
+}
+html body footer .Home{}
+html body footer .Prev:before{
+  content:"\2190";
+}
+html body footer .Prev{}
+html body footer .Next:before{
+  content:"\2192";
+}
+html body footer .Next{}
+/*body.IndexPage*/
+html body.IndexPage ul{
+  list-style: none;
+  padding:0;
+}
+html body.IndexPage ul li.PostSummary{
+  border:none;
+  border-bottom: 1px solid gray;
+  padding:8px;
+  margin:8px;
+  min-height:300px;
+  max-width:600px;
+}
+/*body.PostPage*/
+html body.PostPage article.Post{
+  padding:8px;
+  margin:8px;
+}
+html body.PostPage article.Post h1, html body.PostPage article.Post h2, html body.PostPage article.Post h3, html body.PostPage article.Post h4, html body.PostPage article.Post h5, html body.PostPage article.Post h6{
+  color: gray;
+}
+html body.PostPage article.Post h1{
+  font-size: 32px;
+  font-size:2rem;
+}
+html body.PostPage article.Post  {
+  font-size: 28px;
+  font-size:1.75rem;
+}
+html body.PostPage article.Post p{
+  font-size: 16px;
+  font-size:1rem;
+}
+
+/*# sourceMappingURL=style.css.map */

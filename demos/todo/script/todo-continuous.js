@@ -1,15 +1,11 @@
 import document from '../lib/window/document';
 import createRenderer from '../renderer/dom/todo-static.jsx';
 import getNetwork from '../lib/network-todo';
-import createController from '../controller/todo-static.js';
-import state from '../lib/state';
+import INITIALINSTRUCTION from '../lib/INITIALINSTRUCTION';
 import BASESTATE from '../lib/BASESTATE';
-import INITIALINSTRUCTION from '../lib/INITIALINSTRUCTION';//network
-const controller = createController(state(BASESTATE));
-const network = getNetwork();
+const SSEID = 'SSEID';
 const view = createRenderer(document.getElementsByTagName('div')[0]);
-controller.subscribers.push(view.send);
+const network = getNetwork(SSEID);
 network.subscribers.push(view.send);
-view.subscribers.push(controller.send);
 view.subscribers.push(network.send);
 network.send(INITIALINSTRUCTION);

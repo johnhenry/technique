@@ -1,7 +1,7 @@
-import actionDictionary from './action-dictionary';
 /**
-Return renderer from
+Return update function based on given instruction;
 @param context:Object
-@return Promise< action => * => state => state >
+@return Promise<*=>*>
 */
-export default action => Promise.resolve(actionDictionary[action.type](action.payload));
+import instructionDictionary from './instruction-dictionary';
+export default (instruction) => Promise.resolve(instructionDictionary[instruction.type](instruction.payload));

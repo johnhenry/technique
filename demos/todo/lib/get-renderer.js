@@ -1,8 +1,7 @@
-import jsonRenderer from '../renderer/server-response/json';
-var getRenderer = context=>Promise.resolve(jsonRenderer(context));
 /**
-Return renderer from selection of renderers
+Return renderer function based on context
 @param context:Object
 @return Promise<*=>*>
 */
-export default getRenderer;
+import rendererDictionary from './renderer-dictionary';
+export default context => Promise.resolve(rendererDictionary['json'](context));
