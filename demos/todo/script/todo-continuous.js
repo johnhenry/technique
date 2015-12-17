@@ -1,4 +1,5 @@
 import document from '../lib/window/document';
+import JSON from '../lib/JSON';
 import createRenderer from '../renderer/dom/todo-static.jsx';
 import getNetwork from '../lib/network-todo';
 import INITIALINSTRUCTION from '../lib/INITIALINSTRUCTION';
@@ -7,5 +8,5 @@ const SSEID = 'SSEID';
 const view = createRenderer(document.getElementsByTagName('div')[0]);
 const network = getNetwork(SSEID);
 network.subscribers.push(view.send);
-view.subscribers.push(network.send);
-network.send(INITIALINSTRUCTION);
+view.subscribers.push(input => network.send(JSON.stringify(input)));
+network.send(JSON.stringify(INITIALINSTRUCTION));

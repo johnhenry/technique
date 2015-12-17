@@ -11,7 +11,7 @@ export default (SSEID = undefined, messageType ='message') => {
     const send = instruction => fetch('/', {
       method:'post',
       headers,
-      body : instruction ? JSON.stringify(instruction) : ''}).then(response => {
+      body : instruction}).then(response => {
         switch(response.status){
           case 202:
               //Asynchronous response

@@ -12,13 +12,13 @@
     },
     {
       "plugin" : "nail-js-edge",
-      "tag"    : ["todo-server"],
+      "tag"    : ["todo-server",  "testing"],
       "babelify" : true,
       "source" : "./script/todo-server.js"
     },
     {
       "plugin" : "nail-js-edge",
-      "tag"    : ["todo-continuous",  "testing"],
+      "tag"    : ["todo-continuous"],
       "babelify" : true,
       "source" : "./script/todo-continuous.js"
     },
