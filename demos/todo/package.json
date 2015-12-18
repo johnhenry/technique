@@ -6,12 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node ./node_modules/john-henrys-hammer",
-    "build-static": "node ./node_modules/john-henrys-hammer --tag todo-static ",
-    "build-server": "node ./node_modules/john-henrys-hammer --tag todo-server ",
-    "build-combined": "node ./node_modules/john-henrys-hammer --tag todo-combined ",
-    "build-testing": "node ./node_modules/john-henrys-hammer --tag testing --no-purge",
-    "build-testing2": "node ./node_modules/john-henrys-hammer --tag testing2 --no-purge",
-    "start-server": "node ./server/start"
+    "build-static": "node ./node_modules/john-henrys-hammer --tag static ",
+    "build-async": "node ./node_modules/john-henrys-hammer --tag async ",
+    "build-subscribable": "node ./node_modules/john-henrys-hammer --tag subscribable ",
+    "build-testing": "node ./node_modules/john-henrys-hammer --no-purge",
+    "server-async": "node ./server/start-async",
+    "server-subscribable": "node ./server/start-subscribable"
   },
   "author": "",
   "license": "",

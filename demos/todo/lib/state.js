@@ -1,15 +1,8 @@
-/*
-schema:
-  state:
-  {
-    name: String,
-    todos: List<String>
-  }
-*/
-export default (BASESTATE) => {
-  var internalstate = BASESTATE;
+export default (initialState) => {
+  var internalState = initialState;
   return {
-    get : () => Promise.resolve(internalstate),
-    set : newState => Promise.resolve(internalstate = newState)
+    __proto__ : undefined,
+    get : (context) => Promise.resolve(internalState),
+    set : (newState, context) => Promise.resolve(internalState = newState)
   }
 }

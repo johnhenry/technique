@@ -1,38 +1,38 @@
 {
-  "name"  : "",
+  "name"  : "todo",
   "dir"   : "www",
   "purge" : true,
   "nails" : [
     {
       "plugin" : "nail-js-edge",
-      "tag"    : ["todo-static"],
+      "tag"    : ["static", "js"],
       "babelify" : true,
       "debug":true,
-      "source" : "./script/todo-static.js"
+      "source" : "./script/local-static.js"
     },
     {
       "plugin" : "nail-js-edge",
-      "tag"    : ["todo-server",  "testing"],
+      "tag"    : ["async", "js"],
       "babelify" : true,
-      "source" : "./script/todo-server.js"
+      "source" : "./script/network-async.js"
     },
     {
       "plugin" : "nail-js-edge",
-      "tag"    : ["todo-continuous"],
+      "tag"    : ["subscribable", "js"],
       "babelify" : true,
-      "source" : "./script/todo-continuous.js"
+      "source" : "./script/network-subscribable.js"
     },
     {
       "plugin" : "nail-css-edge",
-      "tag"    :  ["todo-static", "todo-server"],
+      "tag"    :  ["static", "async", "subscribable", "css"],
       "source" : "./style/todo.css"
     },
     {
-      "plugin"     : "./nail-static-react",
-      "tag"        : ["todo-static", "todo-server"],
+      "plugin"     : "./nails/nail-static-react",
+      "tag"        : ["static", "async", "subscribable", "html"],
       "source"       : {},
       "data-source": "",
-      "component"  : "./component/todo",
+      "component"  : "./lib/component/todo",
       "attach"     : [
         "./style.css",
         {

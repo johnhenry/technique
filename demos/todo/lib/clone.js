@@ -1,4 +1,3 @@
-import JSON from './JSON';
 /**
   @description Clone an object
   @param {object} Object to be cloned
