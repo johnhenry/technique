@@ -5,7 +5,6 @@ import koaStatic  from 'koa-static';
 import Router     from 'koa-router';
 import requestTypeParser from '../lib/request-type-parser';
 import controller from '../controller/blog-middleware';
-import JSON from '../lib/JSON';
 const router = new Router();
 koa()
   .use(koaStatic(path.resolve(__dirname , SERVER.STATICDIR)))

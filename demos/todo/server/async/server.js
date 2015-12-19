@@ -6,7 +6,7 @@ import {SERVER, BASESTATE} from '../../settings';
 import state      from '../../lib/state';
 import createController from '../../lib/controller/asynchronous';
 import getUpdate  from '../../lib/get-update';
-import getRenderer from '../../lib/renderer/response';
+import getRenderer from '../response';
 const controller = createController({
   state:state(BASESTATE), getUpdate:getUpdate, getRenderer:getRenderer});
 koa()

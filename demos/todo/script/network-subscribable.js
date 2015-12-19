@@ -1,13 +1,13 @@
 import window from '../lib/window';
 import document from '../lib/window/document';
-import fetch from '../lib/window/fetch';
 import EventSource from '../lib/window/EventSource';
+import fetch from '../lib/window/fetch';
 import prompt from '../lib/window/prompt';
+import createView   from '../lib/react-renderer';
 import getNetwork from '../lib/controller/network';
 import {INITIALINSTRUCTION} from '../settings';
-import createRenderer   from '../lib/renderer/dom/index.jsx';
+import component from '../lib/component/index.jsx';
 const SSEID = prompt('SSEID?') || 'SSEID';
-const view = createRenderer(document.getElementsByTagName('div')[0]);
 const network = getNetwork({
   fetch,
   EventSource,
@@ -15,6 +15,10 @@ const network = getNetwork({
   messageType : 'message',
   headers : {"Content-type" : "application/json", 'X-SSEID' : SSEID}
 });
+const view = createView({
+  target  : document.getElementsByTagName('div')[0],
+  elementDefinition : component
+  });
 network.subscribers.push(input => view.send(JSON.parse(input)));
 view.subscribers.push(input => network.send(JSON.stringify(input)));
 network.send(JSON.stringify(INITIALINSTRUCTION));

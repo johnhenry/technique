@@ -7,7 +7,7 @@ import state      from '../../lib/state';
 import createController from '../../lib/controller/subscribable';
 import getUpdate  from '../../lib/get-update';
 import createStore from '../../lib/flush-map';
-import getRenderer from '../../lib/renderer/response';
+import getRenderer from '../response';
 const controller = createController({
   state       : state(BASESTATE),
   getUpdate   : getUpdate,
