@@ -18,7 +18,7 @@ schema:
 
     }
 */
-import clone from '../clone';
+import clone from './clone';
 export default {
   __proto__ : null
   ,'update-name': name => state => {
