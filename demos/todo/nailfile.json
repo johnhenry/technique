@@ -30,9 +30,11 @@
     {
       "plugin"     : "./nails/nail-static-react",
       "tag"        : ["static", "async", "subscribable", "html"],
-      "source"       : {},
+      "source"       : {
+        "name":"Loading",
+        "todos":["...1","...2","...3"]},
       "data-source": "",
-      "component"  : "./lib/component/todo",
+      "component"  : "./lib/component/page.js",
       "attach"     : [
         "./style.css",
         {

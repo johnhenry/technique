@@ -36,5 +36,8 @@ export default {
     newState.todos = [];
     return newState;
   }
+  ,'set' : newState => state => {
+    return newState;
+  }
   ,'no-update': () => state => state
 };

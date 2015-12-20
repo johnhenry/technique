@@ -7,7 +7,7 @@ import prompt from '../lib/window/prompt';
 import createView   from '../lib/react-renderer';
 import getNetwork from '../lib/controller/network';
 import {INITIALINSTRUCTION} from '../settings';
-import viewDefinition from '../lib/component/index.jsx';
+import viewDefinition from '../lib/component/client.jsx';
 //Step 1.1 Get User Input
 const SSEID = prompt('SSEID?') || 'SSEID';
 //Step 2 : Create Components

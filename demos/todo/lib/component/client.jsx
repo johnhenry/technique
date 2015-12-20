@@ -1,6 +1,6 @@
 const React = require('react');
-import TodoList from './todo/lib/todo-list.jsx';
-import TodoForm from './todo/lib/todo-form.jsx';
+import TodoList from './lib/todo-list.jsx';
+import TodoForm from './lib/todo-form.jsx';
 export default ({subscribers}) => {
   return {
     handleSubmit : data => subscribers.forEach(

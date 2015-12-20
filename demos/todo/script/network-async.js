@@ -8,7 +8,7 @@ import getNetwork from '../lib/controller/network';
 import stateManager from '../lib/state-manager';
 import getUpdate from '../lib/get-update';
 import {BASESTATE, INITIALINSTRUCTION} from '../settings';
-import viewDefinition from '../lib/component/index.jsx';
+import viewDefinition from '../lib/component/client.jsx';
 //Step 2 : Create Components
 const controller = createController({
   state : stateManager(BASESTATE),
