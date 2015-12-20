@@ -1,7 +1,7 @@
 const React = require('react');
 export default React.createClass({
-  postTodo: function(e){
-    e.preventDefault();
+  postTodo: function(event){
+    event.preventDefault();
     const payload = this.todo.value.trim();
     this.todo.value = '';
     return this.props.onSubmit(
@@ -10,9 +10,9 @@ export default React.createClass({
         payload: payload
       });
   },
-  clearTodos: function(e){
-    e.preventDefault();
-    return this.props.onSubmit({type: 'no-update'});
+  clearTodos: function(event){
+    event.preventDefault();
+    return this.props.onSubmit({type: 'clear-todos'});
   },
   render: function(){
     return <form className={this.props.className}>
