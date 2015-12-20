@@ -4,7 +4,5 @@ export default ({todos, className}) => {
     todos = (todos || []).map(todo => {
       return <li key={i++}>{todo}</li>;
     });
-    return <ul className={className}>
-          {todos}
-        </ul>;
+    return <ul className={className}>{todos}</ul>;
   };

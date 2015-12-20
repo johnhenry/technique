@@ -10,8 +10,8 @@
     "build-async": "node ./node_modules/john-henrys-hammer --tag async ",
     "build-subscribable": "node ./node_modules/john-henrys-hammer --tag subscribable ",
     "build-testing": "node ./node_modules/john-henrys-hammer --tag js --tag static --no-purge ",
-    "server-async": "node ./server/start-async",
-    "server-subscribable": "node ./server/start-subscribable"
+    "server-async": "node ./server/async",
+    "server-subscribable": "node ./server/subscribable"
   },
   "author": "",
   "license": "",
